@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, Lookup!</string>
+    <string name="app_name">Sözlük</string>
+    <color name="mainBackground">#FFFFFF</color>
+    <string name="xmlUrl">http://www.enedilim.com/sozluk/xmlsoz/</string>
+    <string name="errorXml">Internet baglanşygynyň ýoklugy sebäpli söz indirilmedi!</string>
+    <string name="errorDb">Söz databazasynda ýalňyş döredi!</string>
+    <string name="msgDbConnection">Söz databazasyna baglanlýar...</string>
+    <string name="msgLoadingWord">Söz indirilýär...</string>
+    <string name="msgHtmlFooter">Türkmen diliniň sözlügi &lt;br /&gt;%1$s © &lt;a href=\&quot;http://www.enedilim.com\&quot;&gt;«Ene dilim»&lt;/a&gt; proýekti.</string>
+    <string name="url">http://www.enedilim.com/</string>
+    <string name="errorCon">Ýalňyş döredi!</string>
+</resources>
