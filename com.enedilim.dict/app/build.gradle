@@ -1,0 +1,36 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "com.enedilim.dict"
+        minSdkVersion 8
+        targetSdkVersion 21
+        versionCode 6
+        versionName "1.5"
+    }
+    signingConfigs {
+        release {
+            storeFile file("enedilimkeys")
+            storePassword "garagum"
+            keyAlias "enedilimkeysalias"
+            keyPassword "garagum"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.android.support:support-v4:21.0.3'
+}

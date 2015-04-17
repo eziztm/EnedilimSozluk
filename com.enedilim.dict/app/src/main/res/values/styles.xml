@@ -1,0 +1,23 @@
+<resources>
+
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="actionBarStyle">@style/Widget.AppTheme.ActionBar</item>
+    </style>
+
+    <style name="Widget.AppTheme.ActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="background">@color/actionbar_background</item>
+        <item name="logo">@mipmap/logo</item>
+        <item name="displayOptions">useLogo|showHome</item>
+        <item name="android:background">@color/actionbar_background_dark</item>
+    </style>
+
+    <style name="Container" parent="@style/Theme.AppCompat.Light">
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:background">@drawable/border</item>
+    </style>
+
+    <style name="WordContainer" parent="@style/Container">
+        <item name="android:layout_margin">0dp</item>
+    </style>
+</resources>

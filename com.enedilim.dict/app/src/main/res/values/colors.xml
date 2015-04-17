@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="actionbar_background">#135B6A</color>
+    <color name="actionbar_background_dark">#ff0e5a6a</color>
+    <color name="content_container_background">#ffffff</color>
+    <color name="content_container_border">#cccccc</color>
+    <color name="content_light_font">#fefefe</color>
+    <color name="grey">#666666</color>
+    <color name="badge1">#4E5F78</color>
+    <color name="badge2">#DF485F</color>
+    <color name="badge3">#5BC0DE</color>
+    <color name="rulesHeader">#9BBF30</color>
+    <color name="rulesBackground">#F5FFD5</color>
+    <color name="alert">#DF3B32</color>
+</resources>

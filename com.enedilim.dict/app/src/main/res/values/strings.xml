@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sözlük</string>
+    <string name="app_desc">Türkmen diliniň düşündirişli sözlügi</string>
+    <string name="baseUrl">http://www.enedilim.com/</string>
+    <string name="xmlApiPath">sozluk/xmlv2soz/</string>
+    <string name="connectionOfflineError">Internet baglanyşygynyň ýoklugy ýa-da haýallygy sebäpli söz indirilmedi...</string>
+    <string name="enedilimUnavailable">«Ene dilim» sahypasy elýeterli däl, birazdan täzeden synanyşyp görüň.</string>
+    <string name="errorDb">Söz databazasynda ýalňyş döredi!</string>
+    <string name="msgDbConnection">Söz databazasyna baglanylýar</string>
+    <string name="msgLoadingWord">Söz indirilýär...</string>
+    <string name="noWordMatch">«%s» sözlükde tapylmady.</string>
+    <string name="buildingDatabase">Söz databazasy gurulýar&#8230;</string>
+    <string name="visitSite">enedilim.com</string>
+    <string name="menuAbout">Sözlük barada</string>
+    <string name="diamond">&#9830;</string>
+    <string name="history">Soňky görlenler</string>
+    <string name="search_hint">Gözleg</string>
+    <string name="search">Gözle</string>
+    <string name="rulesHeader">Ýazuw düzgüni</string>
+    <string name="exampleHeader">Meselem</string>
+    <string name="searchSuggestion">Belki şu sözleriň biridir:</string>
+    <string name="clearHistory">Soňky görlenleri poz</string>
+</resources>
