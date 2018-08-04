@@ -1,7 +1,5 @@
 package com.enedilim.dict.connectors;
 
-import android.util.Log;
-
 import com.enedilim.dict.exceptions.ConnectionException;
 
 import java.io.IOException;
@@ -16,7 +14,7 @@ public class EnedilimConnector {
     private static final String TAG = EnedilimConnector.class.getSimpleName();
     private static final String BASE_URL = "enedilim.com";
     private static final String API_HEADER = "application/vnd.enedilim.v3+xml";
-    private static final OkHttpClient client = new OkHttpClient();
+    private final OkHttpClient client = new OkHttpClient();
 
     public String getWord(String word) throws ConnectionException {
         return doRequest(BASE_URL + "/sozluk/xmlv2soz/" + word);

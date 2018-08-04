@@ -28,13 +28,12 @@ class WordHandler extends DefaultHandler {
     }
 
     @Override
-    public void startDocument() throws SAXException {
-        words = new ArrayList<Word>();
+    public void startDocument() {
+        words = new ArrayList<>();
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName,
-            Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
 
         if (localName.equalsIgnoreCase("WordItem")) {
             currentWord = new Word();
@@ -45,7 +44,7 @@ class WordHandler extends DefaultHandler {
             }
             currentWord.setWordType(attributes.getValue("wordType"));
         } else if (localName.equalsIgnoreCase("defs")) {
-            definitions = new ArrayList<Definition>();
+            definitions = new ArrayList<>();
         } else if (localName.equalsIgnoreCase("def")) {
             currentDef = new Definition();
             if (attributes.getValue("cat") != null) {
@@ -60,7 +59,7 @@ class WordHandler extends DefaultHandler {
                 currentDef.setSeeDefinition(attributes.getValue("def"));
             }
         } else if (localName.equalsIgnoreCase("examples")) {
-            examples = new ArrayList<Example>();
+            examples = new ArrayList<>();
         } else if (localName.equalsIgnoreCase("ex")) {
             currentExample = new Example();
 
@@ -68,19 +67,18 @@ class WordHandler extends DefaultHandler {
                 currentExample.setSource(attributes.getValue("src"));
             }
         } else if (localName.equalsIgnoreCase("phrases")) {
-            phrases = new ArrayList<Phrase>();
+            phrases = new ArrayList<>();
         } else if (localName.equalsIgnoreCase("phraseItem")) {
             currentPhrase = new Phrase();
         } else if (localName.equalsIgnoreCase("notes")) {
-            rules = new ArrayList<String>();
+            rules = new ArrayList<>();
         }
 
         currentElement = localName;
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName)
-            throws SAXException {
+    public void endElement(String uri, String localName, String qName) {
 
         if (localName.equalsIgnoreCase("WordItem")) {
             words.add(currentWord);
@@ -114,8 +112,7 @@ class WordHandler extends DefaultHandler {
     }
 
     @Override
-    public void characters(char ch[], int start, int length)
-            throws SAXException {
+    public void characters(char ch[], int start, int length) {
         String value = new String(ch, start, length);
         value = value.trim();
         if (!value.trim().equals("")) {

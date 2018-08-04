@@ -3,9 +3,13 @@ package com.enedilim.dict.utils;
 import android.util.Log;
 
 import com.enedilim.dict.connectors.EnedilimConnector;
+import com.enedilim.dict.entity.Word;
 import com.enedilim.dict.exceptions.ConnectionException;
+import com.enedilim.dict.exceptions.SaxException;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -19,6 +23,7 @@ import java.net.URLEncoder;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -33,7 +38,8 @@ public class CacheManager {
     public static final String FILE_PREFIX = "cached_";
     public static final int CACHE_SIZE = 50;
     private static final String TAG = CacheManager.class.getSimpleName();
-    private EnedilimConnector connector = new EnedilimConnector();
+    private final EnedilimConnector connector = new EnedilimConnector();
+    private final WordSaxParser parser = new WordSaxParser();
     private static CacheManager INSTANCE;
     private File cacheDir;
 
@@ -44,7 +50,6 @@ public class CacheManager {
         if (INSTANCE == null) {
             INSTANCE = new CacheManager();
         }
-
         return INSTANCE;
     }
 
@@ -63,7 +68,7 @@ public class CacheManager {
      * @return
      * @throws ConnectionException
      */
-    public File get(String word, boolean isOnline) throws ConnectionException {
+    public List<Word> get(String word, boolean isOnline) throws ConnectionException {
         try {
             String searchWord = URLEncoder.encode(word, "UTF-8");
             String filename = "cached_" + searchWord + ".xml";
@@ -72,12 +77,14 @@ public class CacheManager {
             if (cachedFile.exists()) {
                 Log.d(TAG, "Retrieving from cache: " + filename);
                 cachedFile.setLastModified(new Date().getTime());
-                return cachedFile;
+                return parseFromCache(cachedFile);
             }
 
             if (isOnline) {
                 Log.d(TAG, "Retrieving from web: " + filename);
-                return  getOnline(word, filename);
+                String response = connector.getWord(word);
+                saveCacheFile(filename, response);
+                return parseFromString(response);
             }
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
@@ -151,19 +158,7 @@ public class CacheManager {
         }
     }
 
-    /**
-     * Saves the XML from URL to cache directory.
-     * @param word
-     * @param filename
-     * @return
-     * @throws ConnectionException
-     */
-    File getOnline(String word, String filename) throws ConnectionException {
-        String response = connector.getWord(word);
-        return saveCacheFile(filename, response);
-    }
-
-    File saveCacheFile(String filename, String content) {
+    private void saveCacheFile(String filename, String content) {
         File output = new File(cacheDir, filename);
         FileOutputStream os = null;
         try {
@@ -180,7 +175,25 @@ public class CacheManager {
                 }
             }
         }
-        return output;
+    }
 
+    private List<Word> parseFromCache(File xmlFile) {
+        try {
+            return parser.parseXml(new FileInputStream(xmlFile));
+        } catch (FileNotFoundException e) {
+            Log.e(TAG, "Cache file not found. " + e.getMessage());
+        } catch (SaxException se) {
+            Log.e(TAG, "Error while parsing from cache. " + se.getMessage());
+        }
+        return Collections.emptyList();
+    }
+
+    private List<Word> parseFromString(String s) {
+        try {
+            return parser.parseXml(s);
+        } catch (SaxException se) {
+            Log.e(TAG, "Error while parsing from cache. " + se.getMessage());
+        }
+        return Collections.emptyList();
     }
 }

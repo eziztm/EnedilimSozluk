@@ -33,23 +33,12 @@ public class WordFetchTask extends AsyncTask<String, Integer, WordFetchResult> {
     }
 
     private static final String TAG = WordFetchTask.class.getSimpleName();
-    private static final WordSaxParser parser = new WordSaxParser();
-    private static String baseUrl;
-    private static String wordPath;
-    private static String apiHeader;
     private Context context;
     private WordFetchListener callback;
 
     public WordFetchTask(Context context, WordFetchListener callback) {
         this.context = context;
         this.callback = callback;
-
-        // load the xml url once
-        if (baseUrl == null) {
-            baseUrl = context.getResources().getString(R.string.baseUrl);
-            wordPath = context.getResources().getString(R.string.wordPath);
-            apiHeader = context.getResources().getString(R.string.apiHeader);
-        }
     }
 
     /**
@@ -61,7 +50,7 @@ public class WordFetchTask extends AsyncTask<String, Integer, WordFetchResult> {
     public WordFetchResult doInBackground(String... word) {
 
         try {
-            List<Word> words = parseFromCache(CacheManager.getInstance().get(word[0].trim(), isOnline()));
+            List<Word> words = CacheManager.getInstance().get(word[0].trim(), isOnline());
             if (words == null) {
                 words = Collections.emptyList();
             }
@@ -69,18 +58,6 @@ public class WordFetchTask extends AsyncTask<String, Integer, WordFetchResult> {
         } catch (ConnectionException e) {
             return new WordFetchResult(word[0], e);
         }
-    }
-
-    private List<Word> parseFromCache(File xmlFile) {
-        try {
-            InputStream is = new FileInputStream(xmlFile);
-            return parser.parseXml(is);
-        } catch (FileNotFoundException e) {
-            Log.e(TAG, "Cache file not found. " + e.getMessage());
-        } catch (SaxException se) {
-            Log.e(TAG, "Error while parsing from cache. " + se.getMessage());
-        }
-        return Collections.emptyList();
     }
 
     @Override
