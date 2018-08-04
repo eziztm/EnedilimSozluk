@@ -6,7 +6,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -21,9 +21,9 @@ import com.enedilim.dict.utils.DatabaseHelper;
  * Main activity.
  *
  * @author Eziz Annagurban
- * @version 1.2
+ * @version 1.3
  */
-public class MainActivity extends ActionBarActivity implements HistoryFragment.OnWordSelectedListener {
+public class MainActivity extends AppCompatActivity implements HistoryFragment.OnWordSelectedListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String SEARCH_FRAGMENT = "SEARCH";
     private static final String ABOUT_FRAGMENT = "ABOUT";
