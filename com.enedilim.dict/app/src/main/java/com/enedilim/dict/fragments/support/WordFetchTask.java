@@ -34,8 +34,9 @@ public class WordFetchTask extends AsyncTask<String, Integer, WordFetchResult> {
 
     private static final String TAG = WordFetchTask.class.getSimpleName();
     private static final WordSaxParser parser = new WordSaxParser();
-    private static String baseUrl = null;
-    private static String xmlApiUrl = null;
+    private static String baseUrl;
+    private static String wordPath;
+    private static String apiHeader;
     private Context context;
     private WordFetchListener callback;
 
@@ -44,34 +45,29 @@ public class WordFetchTask extends AsyncTask<String, Integer, WordFetchResult> {
         this.callback = callback;
 
         // load the xml url once
-        if (WordFetchTask.baseUrl == null) {
-            WordFetchTask.baseUrl = context.getResources().getString(R.string.baseUrl);
-            WordFetchTask.xmlApiUrl = WordFetchTask.baseUrl + context.getResources().getString(R.string.xmlApiPath);
+        if (baseUrl == null) {
+            baseUrl = context.getResources().getString(R.string.baseUrl);
+            wordPath = context.getResources().getString(R.string.wordPath);
+            apiHeader = context.getResources().getString(R.string.apiHeader);
         }
     }
 
     /**
-     * Parse XML of given word Attempt to find it in cache if not retrieve from
-     * server
+     * Retrieve the word in the background.
+     *
+     * Use cache if it exists, else populate cache from server.
      */
     @Override
     public WordFetchResult doInBackground(String... word) {
 
         try {
-            String searchWord = URLEncoder.encode(word[0].trim(), "UTF-8");
-
-            String cacheFilename = "cached_" + searchWord + ".xml";
-            String xmlUrl = xmlApiUrl + searchWord;
-
-            List<Word> words = parseFromCache(CacheManager.getInstance().get(baseUrl, xmlUrl, cacheFilename, isOnline()));
+            List<Word> words = parseFromCache(CacheManager.getInstance().get(word[0].trim(), isOnline()));
             if (words == null) {
                 words = Collections.emptyList();
             }
             return new WordFetchResult(word[0], words);
         } catch (ConnectionException e) {
             return new WordFetchResult(word[0], e);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
         }
     }
 

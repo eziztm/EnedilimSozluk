@@ -2,6 +2,7 @@ package com.enedilim.dict.utils;
 
 import android.util.Log;
 
+import com.enedilim.dict.connectors.EnedilimConnector;
 import com.enedilim.dict.exceptions.ConnectionException;
 
 import java.io.File;
@@ -14,6 +15,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -30,6 +33,7 @@ public class CacheManager {
     public static final String FILE_PREFIX = "cached_";
     public static final int CACHE_SIZE = 50;
     private static final String TAG = CacheManager.class.getSimpleName();
+    private EnedilimConnector connector = new EnedilimConnector();
     private static CacheManager INSTANCE;
     private File cacheDir;
 
@@ -53,31 +57,31 @@ public class CacheManager {
 
     /**
      * Gets filename from cache if it exists, otherwise retrieves online and puts it in cache.
-     * @param baseUrl
-     * @param fullUrl
-     * @param filename
+     *
+     * @param word
      * @param isOnline
      * @return
      * @throws ConnectionException
      */
-    public File get(String baseUrl, String fullUrl, String filename, boolean isOnline) throws ConnectionException {
-        File cachedFile = new File(cacheDir, filename);
+    public File get(String word, boolean isOnline) throws ConnectionException {
+        try {
+            String searchWord = URLEncoder.encode(word, "UTF-8");
+            String filename = "cached_" + searchWord + ".xml";
+            File cachedFile = new File(cacheDir, filename);
 
-        if (cachedFile.exists()) {
-            Log.d(TAG, "Retrieving from cache: " + filename);
-            cachedFile.setLastModified(new Date().getTime());
-            return cachedFile;
-        }
-
-        if (isOnline) {
-            Log.d(TAG, "Retrieving from web: " + filename);
-            try {
-                return saveCacheFile(fullUrl, filename);
-            } catch (IOException e) {
-                throw new ConnectionException(true, isHostAvailable(baseUrl));
+            if (cachedFile.exists()) {
+                Log.d(TAG, "Retrieving from cache: " + filename);
+                cachedFile.setLastModified(new Date().getTime());
+                return cachedFile;
             }
-        }
 
+            if (isOnline) {
+                Log.d(TAG, "Retrieving from web: " + filename);
+                return  getOnline(word, filename);
+            }
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
         throw new ConnectionException(false, false);
     }
 
@@ -117,7 +121,7 @@ public class CacheManager {
      */
     public void clearCacheDirectory() {
         File[] files = cacheDir.listFiles();
-        for (File file: files) {
+        for (File file : files) {
             if (file.isFile() && file.getName().startsWith(FILE_PREFIX)) {
                 file.delete();
             }
@@ -141,74 +145,42 @@ public class CacheManager {
             }
         });
 
-        int numberOfFilesToDelete = files.length - CACHE_SIZE/2;
+        int numberOfFilesToDelete = files.length - CACHE_SIZE / 2;
         for (int i = 0; i < numberOfFilesToDelete; i++) {
             files[i].delete();
         }
     }
 
-    private boolean isHostAvailable(String url) {
-        HttpURLConnection connection = null;
-        try {
-            URL baseUrl = new URL(url);
-            connection = (HttpURLConnection) baseUrl.openConnection();
-            connection.setRequestMethod("HEAD");
-            connection.setRequestProperty("Accept-Encoding", "");
-            int code = connection.getResponseCode();
-            return code == 200;
-        } catch (IOException e) {
-            return false;
-        } finally {
-            if (connection != null) {
-                connection.disconnect();
-            }
-        }
-    }
-
     /**
      * Saves the XML from URL to cache directory.
-     *
-     * @param url
+     * @param word
      * @param filename
-     * @throws IOException
+     * @return
+     * @throws ConnectionException
      */
-    File saveCacheFile(String url, String filename) throws IOException {
-        URL sourceUrl = new URL(url);
-        HttpURLConnection conn = (HttpURLConnection) sourceUrl.openConnection();
-        conn.setReadTimeout(10000 /* milliseconds */);
-        conn.setConnectTimeout(15000 /* milliseconds */);
-        conn.setRequestMethod("GET");
-        conn.setDoInput(true);
-        conn.connect();
-
-        if (conn.getResponseCode() == 200) {
-            InputStream is = conn.getInputStream();
-            File output = new File(cacheDir, filename);
-            OutputStream os = new FileOutputStream(output);
-            saveCacheFile(is, os);
-            return output;
-        }
-        throw new IOException("Cannot retrieve " + url);
+    File getOnline(String word, String filename) throws ConnectionException {
+        String response = connector.getWord(word);
+        return saveCacheFile(filename, response);
     }
 
-    /**
-     * Saves the file from InputStream to OutputStream
-     *
-     * @param is
-     * @param os
-     * @throws IOException
-     */
-    void saveCacheFile(InputStream is, OutputStream os) throws IOException {
-        // transfer bytes from the inputfile to the outputfile
-        byte[] buffer = new byte[1024];
-        int length;
-        while ((length =is.read(buffer)) > 0) {
-            os.write(buffer, 0, length);
+    File saveCacheFile(String filename, String content) {
+        File output = new File(cacheDir, filename);
+        FileOutputStream os = null;
+        try {
+            os = new FileOutputStream(output);
+            os.write(content.getBytes());
+        } catch (IOException e) {
+            Log.e(TAG, "Failed to write to cache", e);
+        } finally {
+            if (os != null) {
+                try {
+                    os.close();
+                } catch (Exception e) {
+                    Log.e(TAG, "Failed to close stream", e);
+                }
+            }
         }
+        return output;
 
-        // Close the streams
-        os.flush();
-        os.close();
-        is.close();
     }
 }

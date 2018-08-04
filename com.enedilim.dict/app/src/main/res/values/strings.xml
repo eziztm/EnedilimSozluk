@@ -2,8 +2,6 @@
 <resources>
     <string name="app_name">Sözlük</string>
     <string name="app_desc">Türkmen diliniň düşündirişli sözlügi</string>
-    <string name="baseUrl">http://www.enedilim.com/</string>
-    <string name="xmlApiPath">sozluk/xmlv2soz/</string>
     <string name="connectionOfflineError">Internet baglanyşygynyň ýoklugy ýa-da haýallygy sebäpli söz indirilmedi...</string>
     <string name="enedilimUnavailable">«Ene dilim» sahypasy elýeterli däl, birazdan täzeden synanyşyp görüň.</string>
     <string name="errorDb">Söz databazasynda ýalňyş döredi!</string>
