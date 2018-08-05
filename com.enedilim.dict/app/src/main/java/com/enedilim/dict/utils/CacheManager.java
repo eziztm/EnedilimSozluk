@@ -38,12 +38,12 @@ public class CacheManager {
     public static final String FILE_PREFIX = "cached_";
     public static final int CACHE_SIZE = 50;
     private static final String TAG = CacheManager.class.getSimpleName();
-    private final EnedilimConnector connector = new EnedilimConnector();
     private final WordSaxParser parser = new WordSaxParser();
     private static CacheManager INSTANCE;
     private File cacheDir;
 
     private CacheManager() {
+
     }
 
     public static CacheManager getInstance() {
@@ -82,7 +82,7 @@ public class CacheManager {
 
             if (isOnline) {
                 Log.d(TAG, "Retrieving from web: " + filename);
-                String response = connector.getWord(word);
+                String response = EnedilimConnector.getInstance().getWord(word);
                 saveCacheFile(filename, response);
                 return parseFromString(response);
             }

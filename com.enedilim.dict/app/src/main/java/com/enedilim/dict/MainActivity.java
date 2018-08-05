@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.enedilim.dict.asynctasks.UpdateWordListTask;
 import com.enedilim.dict.asynctasks.WordListInitializerTask;
 import com.enedilim.dict.fragments.AboutFragment;
 import com.enedilim.dict.fragments.HistoryFragment;
@@ -131,11 +132,9 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
         if (DatabaseHelper.DATABASE_VERSION > dbVersion) {
             WordListInitializerTask initTask = new WordListInitializerTask(this);
             initTask.execute(dbHelper);
-
-            // Code to run once
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putInt("DB_VERSION", DatabaseHelper.DATABASE_VERSION);
-            editor.commit();
+        } else {
+            UpdateWordListTask task = new UpdateWordListTask(this);
+            task.execute(dbHelper);
         }
 
     }

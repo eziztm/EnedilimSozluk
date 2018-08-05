@@ -4,7 +4,9 @@ import com.enedilim.dict.exceptions.ConnectionException;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -14,15 +16,28 @@ public class EnedilimConnector {
     private static final String TAG = EnedilimConnector.class.getSimpleName();
     private static final String BASE_URL = "enedilim.com";
     private static final String API_HEADER = "application/vnd.enedilim.v3+xml";
-    private final OkHttpClient client = new OkHttpClient();
+    private static EnedilimConnector connector;
+
+    private final OkHttpClient client;
+
+    private EnedilimConnector() {
+        client = new OkHttpClient();
+    }
+
+    public static EnedilimConnector getInstance() {
+        if (connector == null) {
+            connector = new EnedilimConnector();
+        }
+        return connector;
+    }
 
     public String getWord(String word) throws ConnectionException {
         return doRequest(BASE_URL + "/sozluk/soz/" + word);
     }
 
-    public List<String> getWordList() throws ConnectionException {
+    public Set<String> getWordList() throws ConnectionException {
         String response = doRequest(BASE_URL + "/sozluk/meta/wordlist");
-        return Arrays.asList(response.split("\n"));
+        return new HashSet<>(Arrays.asList(response.split("\n")));
     }
 
     public int getWordListVersion() throws ConnectionException {

@@ -8,19 +8,25 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
+
+import com.enedilim.dict.entity.Word;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TAG = DatabaseHelper.class.getSimpleName();
     public static final String DB_NAME = "dict.sqlite";
-    private static final String CREATE_TABLE_SQL = "create table words (_id integer primary key, word text not null);";
+    private static final String CREATE_TABLE_SQL = "create table words (_id integer primary key autoincrement, word text not null, content text, updated datetime default current_timestamp, viewed datetime default current_timestamp);";
     private static final String DROP_TABLE = "drop table if exists words;";
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
+    public static final int INCLUDED_WORDLIST_VERSION = 4;
     private static final String WORDS_ASSET = "words.txt";
     private static DatabaseHelper instance;
     private final Context myContext;
@@ -61,7 +67,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public Cursor retrieveSuggestions(String wordPrefix) {
         wordPrefix = wordPrefix.replaceAll("ñ", "ň");
-        return getReadableDatabase().query("words", null, "word like ?", new String[]{wordPrefix + "%"}, null, null, "_id", "50");
+        return getReadableDatabase().query("words", null, "word like ?", new String[]{wordPrefix + "%"}, null, null, "word", "50");
     }
 
     /**
@@ -74,18 +80,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void populate(SQLiteDatabase db) throws Error, SQLException {
         try {
             Log.i(TAG, "Retrieving word list...");
-            List<String> wordList = getCompleteWordList();
+            Set<String> wordList = getCompleteWordList();
             Log.i(TAG, "Populating words database...");
             db.beginTransaction();
 
-            SQLiteStatement insertStmt = db.compileStatement("insert into words (_id, word) values (?, ?);");
-            long rowCount = 0;
-            for (int i = 0; i < wordList.size(); i++) {
-                insertStmt.bindLong(1, i);
-                insertStmt.bindString(2, wordList.get(i));
-                rowCount = insertStmt.executeInsert();
+            SQLiteStatement insertStmt = db.compileStatement("insert into words (word) values (?);");
+
+            for (String word: wordList) {
+                insertStmt.bindString(1, word);
+                insertStmt.executeInsert();
             }
-            Log.i(TAG, (rowCount + 1) + " rows were inserted.");
             db.setTransactionSuccessful();
         } catch (IOException ex) {
             Log.e(TAG, ex.getMessage());
@@ -101,8 +105,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return List of words
      * @throws IOException
      */
-    private List<String> getCompleteWordList() throws IOException {
-        List<String> words = new ArrayList<String>(21500);
+    private Set<String> getCompleteWordList() throws IOException {
+        Set<String> words = new HashSet<>(21500);
         BufferedReader bis = null;
         try {
             bis = new BufferedReader(new InputStreamReader(myContext.getAssets().open(WORDS_ASSET, AssetManager.ACCESS_STREAMING), "utf-8"));
@@ -117,5 +121,56 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
         return words;
+    }
+
+    public void updateWordList(Set<String> onlineWordList) {
+        Log.i(TAG, "Updating wordlist from remote source");
+
+        Cursor cursor = getReadableDatabase().query("words", new String[]{"word"}, null, null, null, null, null, null);
+        Set<String> storedWordList = new HashSet<>();
+        if (cursor.moveToFirst()) {
+            do {
+                storedWordList.add(cursor.getString(cursor.getColumnIndex("word")));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        Set<String> toAdd = new HashSet<>(onlineWordList);
+        toAdd.removeAll(storedWordList);
+
+        Set<String> toRemove = new HashSet<>(storedWordList);
+        toRemove.removeAll(onlineWordList);
+
+        if (!toAdd.isEmpty() || !toRemove.isEmpty()) {
+            updateRows(toAdd, toRemove);
+        }
+
+    }
+
+    private void updateRows(Set<String> toAdd, Set<String> toRemove) {
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            db.beginTransaction();
+            if (!toAdd.isEmpty()) {
+                SQLiteStatement insertStmt = db.compileStatement("insert into words (word) values (?);");
+                for (String word: toAdd) {
+                    insertStmt.bindString(1, word);
+                    insertStmt.executeInsert();
+                }
+                Log.i(TAG, "Added " + toAdd.size() + " rows");
+            }
+            if (!toRemove.isEmpty()) {
+                SQLiteStatement deleteStmt = db.compileStatement("delete from words where word = ?;");
+                for (String word: toAdd) {
+                    deleteStmt.bindString(1, word);
+                    deleteStmt.executeUpdateDelete();
+                }
+                Log.i(TAG, "Removed " + toRemove.size() + " rows");
+            }
+            db.setTransactionSuccessful();
+        }  finally {
+            db.endTransaction();
+            db.close();
+        }
     }
 }

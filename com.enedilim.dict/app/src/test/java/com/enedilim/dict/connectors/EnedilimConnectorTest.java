@@ -11,7 +11,7 @@ import static org.hamcrest.CoreMatchers.hasItem;
 import static org.junit.Assert.*;
 
 public class EnedilimConnectorTest {
-    private EnedilimConnector connector = new EnedilimConnector();
+    private EnedilimConnector connector = EnedilimConnector.getInstance();
 
     @Test
     public void shouldGetExistingWord() throws ConnectionException {

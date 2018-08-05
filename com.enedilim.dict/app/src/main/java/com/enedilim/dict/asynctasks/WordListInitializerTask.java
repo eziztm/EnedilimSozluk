@@ -2,8 +2,10 @@ package com.enedilim.dict.asynctasks;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 import com.enedilim.dict.R;
@@ -49,7 +51,17 @@ public class WordListInitializerTask extends AsyncTask<DatabaseHelper, Integer, 
 
         SQLiteDatabase db = dbHelpers[0].getWritableDatabase();
         boolean result = db.isOpen() && !db.isReadOnly();
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("DB_VERSION", DatabaseHelper.DATABASE_VERSION);
+        editor.putInt("WORDLIST_VERSION", DatabaseHelper.INCLUDED_WORDLIST_VERSION);
+        editor.commit();
         db.close();
+
+        UpdateWordListTask task = new UpdateWordListTask(context);
+        task.execute(dbHelpers[0]);
+
         return result;
     }
 }

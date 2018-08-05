@@ -1,3 +1,4 @@
+-ha
 a
 aba
 abadan
@@ -804,7 +805,6 @@ arfa
 arfist
 argamak
 argaç
-argentinalylar
 argo
 argon
 argotizm
@@ -942,6 +942,7 @@ arzanlamak
 arzanlatmak
 arzanlyk
 arzançylyk
+arzaçy
 arzuw
 arzuwdaş
 arzuwlamak
@@ -952,7 +953,6 @@ arça
 arçalmak
 arçamak
 arçatmak
-arçazy
 arçaşmak
 arçyn
 arçynlamak
@@ -1048,7 +1048,7 @@ at-ýarag
 ata
 ata-baba
 atabir-enebir
-atagyz
+atagzy
 ataly-ogul
 atalyk
 atan-satan
@@ -2103,7 +2103,7 @@ bethäsiýet
 bethäsiýetlik
 betlagam
 betlik
-betman
+betnam
 betnamlyk
 betnebis
 betnebislik
@@ -2124,7 +2124,7 @@ bez
 bezbeltek
 bezdirmek
 beze
-bezegi
+bezeg
 bezegli
 bezelmek
 bezemek
@@ -2530,6 +2530,8 @@ boýbodran
 boýdan-başa
 boýdaş
 boýdäne
+boýkot
+boýkotlamak
 boýlamak
 boýnamak
 boýnatmak
@@ -2554,7 +2556,7 @@ boşaň
 boşaňlyk
 boşaşmak
 boşlaň
-boşlaňdyk
+boşlaňlyk
 boşluk
 brom
 bron
@@ -3055,7 +3057,6 @@ daşlaşmak
 daşly
 daşlyk
 daşmak
-de
 debet
 debit
 debsemek
@@ -3568,6 +3569,7 @@ dokuma
 dokument
 dokumental
 dokunmak
+dokuz
 doky
 dolak
 dolaklyk
@@ -4047,7 +4049,7 @@ düwürtiklemek
 düwüşmek
 düz
 düzdeçi
-düzdürmak
+düzdürmek
 düzedilmek
 düzedişmek
 düzelişmek
@@ -4386,6 +4388,7 @@ emallatmak
 emallaýjy
 emallaşmak
 emaý
+embargo
 emdirmek
 emedeklemek
 emedeklenmek
@@ -4659,6 +4662,7 @@ eýse
 eýsem
 eýwan
 eýwaý
+eýýam
 eýýäm
 eň
 eňek
@@ -5623,7 +5627,6 @@ gaşanmak
 gaşatmak
 gaşba-gaş
 gaşlak
-ge
 geda
 gedaý
 gedaýlaşmak
@@ -5651,6 +5654,7 @@ gelinbarmak
 gelinjek
 gelinlik
 gelişdirmek
+gelişmek
 gelmek
 gelmişek
 gelnalyjy
@@ -5802,6 +5806,7 @@ geňlenmek
 geňlik
 geňzew
 geňzewi
+gidermek
 gidermen
 gidibermek
 gidilmek
@@ -5937,7 +5942,7 @@ gonaklyk
 gonalga
 gonam
 gonamalçy
-gonamçylykçy
+gonamçylyk
 gondalaw
 gondubag
 gondurmak
@@ -6031,10 +6036,10 @@ gowluk
 gowrulmak
 gowrunmak
 gowruşmak
+gowulandyrmak
 gowulanmak
 gowulatmak
 gowulaşmak
-gowuldandyrmak
 gowulyk
 gowur
 gowurdak
@@ -6309,7 +6314,7 @@ gurçuk
 gurşalmak
 gurşamak
 gurşatmak
-gurşow
+gurşaw
 gurşuk
 gurşun
 gurşunlamak
@@ -6832,8 +6837,8 @@ görüjilik
 görülmek
 görüm
 görüm-görelde
+görümsiz
 görümsizlik
-görümsüz
 görünmek
 görüstan
 görüstanlyk
@@ -6871,7 +6876,7 @@ göwher
 göwnejaý
 göwnemek
 göwnetmek
-göwniýetmezlik
+göwnüýetmezlik
 göwre
 göwreli
 göwrüm
@@ -6879,13 +6884,13 @@ göwün
 göwün-kine
 göwündeş
 göwünjeň
+göwünjeňlik
 göwünli-göwünsiz
 göwünlik
 göwünsiz
 göwünsizlik
 göwüs
 göwüsbent
-göwüňjeňlik
 göwşül
 göwşüldemek
 göz
@@ -7146,13 +7151,13 @@ gütürdemek
 gütürdetmek
 gütürdi
 güw-güw
-güwa
 güwlemek
 güwlempaç
 güwlempaçlamak
 güwleşmek
 güwwüldemek
 güwwüldi
+güwä
 güwälik
 güzap
 güzer
@@ -7196,7 +7201,6 @@ güňleç
 güžžüldemek
 güžžüldetmek
 güžžüldi
-ha
 hababaýlamak
 hababaýlatmak
 habar
@@ -8632,7 +8636,7 @@ itibermek
 itigi
 itilmek
 itinmek
-itişidirmek
+itişdirmek
 itişmek
 itlik
 itmek
@@ -8880,7 +8884,6 @@ jaňňyrdamak
 jaňňyrdatmak
 jaňňyrdaşmak
 jaňňyrdy
-je
 jebir
 jebir-jepa
 jebir-sütem
@@ -9302,6 +9305,8 @@ kanwa
 kapas
 kapasa
 kapaslyk
+kapyr
+kapyrlyk
 kapyýa
 kapyýalaşmak
 kapyýaly
@@ -9334,9 +9339,9 @@ kaýyllyk
 kaňkamak
 kaňkatmak
 kaňkaşmak
+kaşak
 kaşaň
 kaşyk
-kaşçak
 kebap
 kebelek
 kebeleklemek
@@ -10513,6 +10518,8 @@ mata-marlak
 matal
 matam
 matamly
+matematika
+matematiki
 matlap
 maw
 mawlamak
@@ -11019,6 +11026,8 @@ mölerilmek
 mölermek
 mölertmek
 möleşmek
+mömin
+möminsiremek
 mön
 mönlük
 mönsüremek
@@ -11278,6 +11287,7 @@ nep
 nepes
 nepis
 nepislik
+ner
 neresse
 nerkes
 nerme
@@ -11604,6 +11614,7 @@ omzamak
 omzatmak
 omzaşmak
 omça
+on
 onbaşy
 onda-munda
 ondan-mundan
@@ -12250,7 +12261,6 @@ paşşyldy
 pažžyldamak
 pažžyldatmak
 pažžyldy
-pe
 pedernälet
 pekge
 pekgelik
@@ -14408,11 +14418,11 @@ sörtük
 söw-söw
 söwda
 söwda-satyk
+söwdagär
+söwdagärlik
+söwdagärçilik
 söwdalaşmak
 söwdaly
-söwdegär
-söwdegärlik
-söwdegärçilik
 söwdek
 söwedeň
 söwedeňlemek
@@ -14458,7 +14468,6 @@ söýgetlemek
 söýgetlenmek
 söýgi
 söýgüli
-söýkeşmek
 söýlemek
 söýmek
 söýülmek
@@ -14622,6 +14631,7 @@ süýkelmek
 süýkemek
 süýkenmek
 süýkeş
+süýkeşmek
 süýkmek
 süýndürmek
 süýnmek
@@ -15028,7 +15038,6 @@ taşlanmak
 taşlatmak
 taşlaşdyrmak
 taşlaşmak
-te
 teatr
 teatral
 tebigat
@@ -15324,7 +15333,6 @@ tirdirmek
 tire
 tirebazlyk
 tiredeş
-tirek
 tireparaz
 tireparazlyk
 tireçilik
@@ -15729,7 +15737,6 @@ tyňzamak
 tä
 täjihoraz
 täjir
-täjirhoraz
 täk
 täklik
 täleý
@@ -15963,6 +15970,7 @@ ulňaşmak
 ulňaşyk
 umga
 umma
+umman
 ummasyz
 umuman
 umumy
@@ -15983,6 +15991,7 @@ unaş
 unaşmak
 uniwerstitet
 unlamak
+unlanmak
 unlatmak
 unudylmak
 unutdyrmak
@@ -16347,6 +16356,7 @@ ygal
 ygallyk
 ygalsyz
 yglan
+ygrar
 ygtybar
 ygtybarly
 ygtybarlylyk
@@ -17289,7 +17299,6 @@ züwwetdin
 çaşyk
 çaşylyk
 çaşyrmak
-çe
 çebiş
 çebşek
 çekdirme
@@ -18059,7 +18068,7 @@ züwwetdin
 ötlem-ötlem
 ötmek
 ötri
-ötägitmak
+ötägitmek
 ötügsiz
 ötük
 ötülmek
@@ -18549,7 +18558,6 @@ züwwetdin
 ýakyşmak
 ýal
 ýala
-ýalaaňaçlyk
 ýalak
 ýalakça
 ýalama
@@ -18569,6 +18577,7 @@ züwwetdin
 ýalaňaç
 ýalaňaçlanmak
 ýalaňaçlatmak
+ýalaňaçlyk
 ýalaňgat
 ýalaňy
 ýalbarmak
@@ -19459,7 +19468,6 @@ züwwetdin
 ýuwuş
 ýuwuşdyrmak
 ýuwuşmak
-ýy
 ýygalmak
 ýygaltmak
 ýygdyrmak
