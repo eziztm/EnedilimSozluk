@@ -161,9 +161,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
             if (!toRemove.isEmpty()) {
                 SQLiteStatement deleteStmt = db.compileStatement("delete from words where word = ?;");
-                for (String word: toAdd) {
+                for (String word: toRemove) {
                     deleteStmt.bindString(1, word);
-                    deleteStmt.executeUpdateDelete();
+                    int result = deleteStmt.executeUpdateDelete();
                 }
                 Log.i(TAG, "Removed " + toRemove.size() + " rows");
             }
