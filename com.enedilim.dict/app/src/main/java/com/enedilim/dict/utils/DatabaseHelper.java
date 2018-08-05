@@ -60,6 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return Cursor instance with all query data
      */
     public Cursor retrieveSuggestions(String wordPrefix) {
+        wordPrefix = wordPrefix.replaceAll("ñ", "ň");
         return getReadableDatabase().query("words", null, "word like ?", new String[]{wordPrefix + "%"}, null, null, "_id", "50");
     }
 
