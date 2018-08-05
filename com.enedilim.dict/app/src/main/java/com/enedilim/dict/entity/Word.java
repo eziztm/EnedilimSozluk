@@ -5,103 +5,52 @@ import java.util.List;
 
 public class Word {
 
-    private int id;
-    private String word;
-    private int homonym;
-    private String pronun;
-    private List<Definition> definitions;
-    private List<Phrase> phrases;
-    private boolean favourite;
-    private String wordType;
-    private List<String> rules;
-    private String ruleExample;
+    private final String word;
+    private final int homonym;
+    private final String pronun;
+    private final String wordType;
 
-    public Word() {
-        homonym = 0;
-        definitions = new ArrayList<Definition>();
-        phrases = new ArrayList<Phrase>();
-        rules = new ArrayList<String>();
-    }
+    private final List<Definition> definitions;
+    private final List<Phrase> phrases;
+    private final List<Rule> rules;
 
-    public int getId() {
-        return id;
-    }
+    public Word(String word, String homonym, String pronun, String wordType) {
+        this.word = word;
+        this.homonym = homonym == null ? 0 : Integer.parseInt(homonym);
+        this.pronun = pronun;
+        this.wordType = wordType;
 
-    public void setId(int id) {
-        this.id = id;
+        definitions = new ArrayList<>();
+        phrases = new ArrayList<>();
+        rules = new ArrayList<>();
     }
 
     public String getWord() {
         return word;
     }
 
-    public void setWord(String word) {
-        this.word = word;
-    }
-
     public int getHomonym() {
         return homonym;
-    }
-
-    public void setHomonym(int homonym) {
-        this.homonym = homonym;
     }
 
     public String getPronun() {
         return pronun;
     }
 
-    public void setPronun(String pronun) {
-        if (!pronun.trim().equals(""))
-            this.pronun = pronun;
+    public String getWordType() {
+        return wordType;
     }
 
     public List<Definition> getDefinitions() {
         return definitions;
     }
 
-    public void setDefinitions(List<Definition> definitions) {
-        this.definitions = definitions;
-    }
-
     public List<Phrase> getPhrases() {
         return phrases;
     }
 
-    public void setPhrases(List<Phrase> phrases) {
-        this.phrases = phrases;
-    }
-
-    public boolean isFavourite() {
-        return favourite;
-    }
-
-    public void setFavourite(boolean favourite) {
-        this.favourite = favourite;
-    }
-
-    public String getWordType() {
-        return wordType;
-    }
-
-    public void setWordType(String wordType) {
-        this.wordType = wordType;
-    }
-
-    public String getRuleExample() {
-        return ruleExample;
-    }
-
-    public void setRuleExample(String ruleExample) {
-        this.ruleExample = ruleExample;
-    }
-
-    public List<String> getRules() {
+    public List<Rule> getRules() {
         return rules;
-    }
-
-    public void setRules(List<String> rules) {
-        this.rules = rules;
     }
 
     @Override

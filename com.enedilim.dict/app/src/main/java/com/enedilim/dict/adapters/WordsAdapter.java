@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.enedilim.dict.R;
+import com.enedilim.dict.entity.Rule;
 import com.enedilim.dict.entity.Word;
 
 import java.util.List;
@@ -85,13 +86,13 @@ public class WordsAdapter extends ArrayAdapter<Word> {
 
             if (w.getRules() != null && !w.getRules().isEmpty()) {
                 StringBuilder sb = new StringBuilder();
-                for (String rule : w.getRules()) {
-                    sb.append(rule).append(" ");
+                for (Rule rule : w.getRules()) {
+                    sb.append(rule.getExplanation()).append(" ");
                 }
                 String rules = sb.toString();
                 rules = rules.replaceAll("\\*([A-Za-zŽÄÜÇÝŇÖŞžüçýňöş -]+)\\*", "<strong>$1</strong>");
                 holder.rules.setText(Html.fromHtml(rules));
-                holder.ruleExamples.setText(w.getRuleExample());
+                holder.ruleExamples.setText(w.getRules().get(0).getExamples());
                 holder.rulesContainer.setVisibility(View.VISIBLE);
             }
 

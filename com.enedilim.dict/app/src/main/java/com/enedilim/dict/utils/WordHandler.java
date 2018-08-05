@@ -3,9 +3,12 @@ package com.enedilim.dict.utils;
 import com.enedilim.dict.entity.Definition;
 import com.enedilim.dict.entity.Example;
 import com.enedilim.dict.entity.Phrase;
+import com.enedilim.dict.entity.Rule;
 import com.enedilim.dict.entity.Word;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -13,15 +16,12 @@ import org.xml.sax.helpers.DefaultHandler;
 class WordHandler extends DefaultHandler {
 
     private List<Word> words;
-    private List<Definition> definitions;
-    private List<Example> examples;
-    private List<Phrase> phrases;
     private Word currentWord;
     private Definition currentDef;
     private Example currentExample;
     private Phrase currentPhrase;
     private String currentElement = null;
-    private List<String> rules;
+    private Rule currentRule;
 
     public List<Word> getWords() {
         return words;
@@ -33,45 +33,25 @@ class WordHandler extends DefaultHandler {
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) {
+    public void startElement(String uri, String localName, String qName, Attributes attr) {
 
-        if (localName.equalsIgnoreCase("WordItem")) {
-            currentWord = new Word();
-        } else if (localName.equalsIgnoreCase("word")) {
-            if (attributes.getValue("hom") != null) {
-                int h = Integer.parseInt(attributes.getValue("hom"));
-                currentWord.setHomonym(h);
-            }
-            currentWord.setWordType(attributes.getValue("wordType"));
-        } else if (localName.equalsIgnoreCase("defs")) {
-            definitions = new ArrayList<>();
-        } else if (localName.equalsIgnoreCase("def")) {
-            currentDef = new Definition();
-            if (attributes.getValue("cat") != null) {
-                currentDef.setCategory(attributes.getValue("cat"));
-            }
-        } else if (localName.equalsIgnoreCase("seeWord")) {
-            if (attributes.getValue("hom") != null) {
-                currentDef.setSeeHomonym(Integer.parseInt(attributes.getValue("hom")));
-            }
-
-            if (attributes.getValue("def") != null) {
-                currentDef.setSeeDefinition(attributes.getValue("def"));
-            }
-        } else if (localName.equalsIgnoreCase("examples")) {
-            examples = new ArrayList<>();
-        } else if (localName.equalsIgnoreCase("ex")) {
-            currentExample = new Example();
-
-            if (attributes.getValue("src") != null) {
-                currentExample.setSource(attributes.getValue("src"));
-            }
-        } else if (localName.equalsIgnoreCase("phrases")) {
-            phrases = new ArrayList<>();
+        if (localName.equalsIgnoreCase("wordItem")) {
+            currentWord = new Word(attr.getValue("word"),
+                    attr.getValue("hom"),
+                    attr.getValue("pronun"),
+                    attr.getValue("class"));
+        } else if (localName.equalsIgnoreCase("defItem")) {
+            currentDef = new Definition(attr.getValue("cat"),
+                    attr.getValue("see"),
+                    attr.getValue("seeHom"),
+                    attr.getValue("seeDef"),
+                    attr.getValue("seePhrase"));
+        } else if (localName.equalsIgnoreCase("example")) {
+            currentExample = new Example(attr.getValue("source"));
         } else if (localName.equalsIgnoreCase("phraseItem")) {
-            currentPhrase = new Phrase();
-        } else if (localName.equalsIgnoreCase("notes")) {
-            rules = new ArrayList<>();
+            currentPhrase = new Phrase(attr.getValue("phrase"));
+        } else if (localName.equalsIgnoreCase("rule")) {
+            currentRule = new Rule();
         }
 
         currentElement = localName;
@@ -79,35 +59,25 @@ class WordHandler extends DefaultHandler {
 
     @Override
     public void endElement(String uri, String localName, String qName) {
-
-        if (localName.equalsIgnoreCase("WordItem")) {
+        if (localName.equalsIgnoreCase("wordItem")) {
             words.add(currentWord);
             currentWord = null;
-        } else if (localName.equalsIgnoreCase("defs")) {
+        } else if (localName.equalsIgnoreCase("defItem")) {
             if (currentPhrase == null) {
-                currentWord.setDefinitions(definitions);
+                currentWord.getDefinitions().add(currentDef);
             } else {
-                currentPhrase.setDefinitions(definitions);
+                currentPhrase.getDefinitions().add(currentDef);
             }
-            definitions = null;
-        } else if (localName.equalsIgnoreCase("def")) {
-            definitions.add(currentDef);
             currentDef = null;
-        } else if (localName.equalsIgnoreCase("examples")) {
-            currentDef.setExamples(examples);
-            examples = null;
-        } else if (localName.equalsIgnoreCase("ex")) {
-            examples.add(currentExample);
+        } else if (localName.equalsIgnoreCase("example")) {
+            currentDef.getExamples().add(currentExample);
             currentExample = null;
-        } else if (localName.equalsIgnoreCase("phrases")) {
-            currentWord.setPhrases(phrases);
-            phrases = null;
         } else if (localName.equalsIgnoreCase("phraseItem")) {
-            phrases.add(currentPhrase);
+            currentWord.getPhrases().add(currentPhrase);
             currentPhrase = null;
-        } else if (localName.equalsIgnoreCase("notes")) {
-            currentWord.setRules(rules);
-            rules = null;
+        } else if (localName.equalsIgnoreCase("rule")) {
+            currentWord.getRules().add(currentRule);
+            currentRule = null;
         }
     }
 
@@ -115,26 +85,18 @@ class WordHandler extends DefaultHandler {
     public void characters(char ch[], int start, int length) {
         String value = new String(ch, start, length);
         value = value.trim();
-        if (!value.trim().equals("")) {
-            if (currentElement.equalsIgnoreCase("word")) {
-                currentWord.setWord(value);
-            } else if (currentElement.equalsIgnoreCase("pronun")) {
-                currentWord.setPronun(value);
-            } else if (currentElement.equalsIgnoreCase("d")) {
-                currentDef.setDefinition(value);
-            } else if (currentElement.equalsIgnoreCase("ex")) {
-                currentExample.setExample(value);
-            } else if (currentElement.equalsIgnoreCase("seeWord")) {
-                currentDef.setSee(value);
-            } else if (currentElement.equalsIgnoreCase("seePhrase")) {
-                currentDef.setSeePhrase(value);
-            } else if (currentElement.equalsIgnoreCase("phrase")) {
-                currentPhrase.setPhrase(value);
-            } else if (currentElement.equalsIgnoreCase("rule")) {
-                rules.add(value);
-            } else if (currentElement.equalsIgnoreCase("ruleExample")) {
-                currentWord.setRuleExample(value);
-            }
+        if (value.trim().equals("")) {
+            return;
+        }
+
+        if (currentElement.equalsIgnoreCase("def")) {
+            currentDef.setDefinition(value);
+        } else if (currentElement.equalsIgnoreCase("example")) {
+            currentExample.setExample(value);
+        } else if (currentElement.equalsIgnoreCase("explanation")) {
+            currentRule.setExplanation(value);
+        } else if (currentElement.equalsIgnoreCase("examples")) {
+            currentRule.setExamples(value);
         }
     }
 }

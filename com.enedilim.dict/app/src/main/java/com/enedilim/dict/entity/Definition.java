@@ -4,73 +4,53 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Definition {
-
     private String definition;
-    private List<Example> examples;
-    private String category;
-    private String see;
-    private int seeHomonym;
-    private String seeDefinition;
-    private String seePhrase;
+    private final List<Example> examples;
+    private final String category;
+    private final String see;
+    private final int seeHomonym;
+    private final String seeDefinition;
+    private final String seePhrase;
 
-    public Definition() {
-        examples = new ArrayList<Example>();
-    }
-
-    public String getDefinition() {
-        return definition;
+    public Definition(String category, String see, String seeHomonym, String seeDefinition, String seePhrase) {
+        this.category = category;
+        this.see = see;
+        this.seeHomonym = seeHomonym == null ? 0 : Integer.parseInt(seeHomonym);
+        this.seeDefinition = seeDefinition;
+        this.seePhrase = seePhrase;
+        examples = new ArrayList<>();
     }
 
     public void setDefinition(String definition) {
         this.definition = definition;
     }
 
-    public List<Example> getExamples() {
-        return examples;
+    public String getDefinition() {
+        return definition;
     }
 
-    public void setExamples(List<Example> examples) {
-        this.examples = examples;
+    public List<Example> getExamples() {
+        return examples;
     }
 
     public String getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public String getSee() {
         return see;
-    }
-
-    public void setSee(String see) {
-        this.see = see;
     }
 
     public int getSeeHomonym() {
         return seeHomonym;
     }
 
-    public void setSeeHomonym(int seeHomonym) {
-        this.seeHomonym = seeHomonym;
-    }
-
     public String getSeeDefinition() {
         return seeDefinition;
     }
 
-    public void setSeeDefinition(String seeDefinition) {
-        this.seeDefinition = seeDefinition;
-    }
-
     public String getSeePhrase() {
         return seePhrase;
-    }
-
-    public void setSeePhrase(String seePhrase) {
-        this.seePhrase = seePhrase;
     }
 
     @Override

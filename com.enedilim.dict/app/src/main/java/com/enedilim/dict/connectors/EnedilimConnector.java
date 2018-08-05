@@ -17,7 +17,7 @@ public class EnedilimConnector {
     private final OkHttpClient client = new OkHttpClient();
 
     public String getWord(String word) throws ConnectionException {
-        return doRequest(BASE_URL + "/sozluk/xmlv2soz/" + word);
+        return doRequest(BASE_URL + "/sozluk/soz/" + word);
     }
 
     public List<String> getWordList() throws ConnectionException {

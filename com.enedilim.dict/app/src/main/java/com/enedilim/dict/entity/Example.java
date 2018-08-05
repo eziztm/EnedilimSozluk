@@ -6,12 +6,13 @@ import java.util.List;
 public class Example {
 	
     private String example;
-    private String source;
+    private final String source;
 
-    public Example() {
+    public Example(String source) {
+        this.source = source;
     }
 
-	String getExample() {
+	public String getExample() {
 		return example;
 	}
 
@@ -19,12 +20,8 @@ public class Example {
 		this.example = example;
 	}
 
-	String getSource() {
+	public String getSource() {
 		return source;
-	}
-
-	public void setSource(String source) {
-		this.source = source;
 	}
     
     @Override
