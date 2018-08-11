@@ -6,20 +6,15 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.enedilim.dict.R;
+import com.enedilim.dict.connectors.EnedilimConnector;
 import com.enedilim.dict.entity.Word;
+import com.enedilim.dict.entity.WordContent;
 import com.enedilim.dict.exceptions.ConnectionException;
-import com.enedilim.dict.exceptions.SaxException;
-import com.enedilim.dict.utils.CacheManager;
+import com.enedilim.dict.utils.DatabaseHelper;
 import com.enedilim.dict.utils.WordSaxParser;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.Collections;
+import org.xml.sax.SAXException;
+
 import java.util.List;
 
 /**
@@ -43,20 +38,50 @@ public class WordFetchTask extends AsyncTask<String, Integer, WordFetchResult> {
 
     /**
      * Retrieve the word in the background.
-     *
+     * <p>
      * Use cache if it exists, else populate cache from server.
      */
     @Override
     public WordFetchResult doInBackground(String... word) {
 
         try {
-            List<Word> words = CacheManager.getInstance().get(word[0].trim(), isOnline());
-            if (words == null) {
-                words = Collections.emptyList();
+            WordContent wordContent = DatabaseHelper.getInstance(context).getWordContent(word[0].trim());
+            boolean staleContentExists = false;
+            if (wordContent != null) {
+                if (wordContent.isStale()) {
+                    staleContentExists = true;
+                } else {
+                    Log.i(TAG, "Word displayed from cache");
+                    return new WordFetchResult(word[0], WordSaxParser.getInstance().parseXml(wordContent.getContent()));
+                }
             }
-            return new WordFetchResult(word[0], words);
+
+            if (!isOnline()) {
+                if (staleContentExists) {
+                    Log.i(TAG, "Showing stale content");
+                    return new WordFetchResult(word[0], WordSaxParser.getInstance().parseXml(wordContent.getContent()));
+                } else {
+                    return new WordFetchResult(word[0], WordFetchResult.Error.NO_NETWORK);
+                }
+            }
+
+            String content = EnedilimConnector.getInstance().getWord(word[0]);
+            if (content == null || content.isEmpty()) {
+                if (staleContentExists) {
+                    return new WordFetchResult(word[0], WordSaxParser.getInstance().parseXml(wordContent.getContent()));
+                } else {
+                    return new WordFetchResult(word[0], WordFetchResult.Error.NOT_FOUND);
+                }
+            } else {
+                Log.i(TAG, "Word retrieved online");
+                List<Word> words = WordSaxParser.getInstance().parseXml(content);
+                DatabaseHelper.getInstance(context).storeWordContent(word[0].trim(), content);
+                return new WordFetchResult(word[0], words);
+            }
         } catch (ConnectionException e) {
-            return new WordFetchResult(word[0], e);
+            return new WordFetchResult(word[0], WordFetchResult.Error.REMOTE_FAILED);
+        } catch (SAXException e) {
+            return new WordFetchResult(word[0], WordFetchResult.Error.NOT_FOUND);
         }
     }
 

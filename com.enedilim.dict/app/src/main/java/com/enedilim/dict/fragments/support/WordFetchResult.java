@@ -11,14 +11,20 @@ import java.util.List;
 public class WordFetchResult {
     private final String word;
     private List<Word> words;
-    private ConnectionException error;
+    private Error error;
+
+    public enum Error {
+        NO_NETWORK,
+        REMOTE_FAILED,
+        NOT_FOUND
+    }
 
     public WordFetchResult(String word, List<Word> words) {
         this.words = words;
         this.word = word;
     }
 
-    public WordFetchResult(String word, ConnectionException error) {
+    public WordFetchResult(String word, Error error) {
         this.error = error;
         this.word = word;
     }
@@ -31,11 +37,11 @@ public class WordFetchResult {
         return words;
     }
 
-    public ConnectionException getError() {
-        return error;
-    }
-
     public String getWord() {
         return word;
+    }
+
+    public Error getError() {
+        return error;
     }
 }

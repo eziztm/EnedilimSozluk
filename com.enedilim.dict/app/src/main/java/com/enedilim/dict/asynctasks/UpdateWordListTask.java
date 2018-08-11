@@ -10,8 +10,6 @@ import com.enedilim.dict.connectors.EnedilimConnector;
 import com.enedilim.dict.exceptions.ConnectionException;
 import com.enedilim.dict.utils.DatabaseHelper;
 
-import java.time.Duration;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;

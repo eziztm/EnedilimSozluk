@@ -1,11 +1,11 @@
 package com.enedilim.dict.connectors;
 
 import com.enedilim.dict.exceptions.ConnectionException;
+import com.enedilim.dict.exceptions.NotFoundException;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import okhttp3.OkHttpClient;
@@ -17,7 +17,6 @@ public class EnedilimConnector {
     private static final String BASE_URL = "enedilim.com";
     private static final String API_HEADER = "application/vnd.enedilim.v3+xml";
     private static EnedilimConnector connector;
-
     private final OkHttpClient client;
 
     private EnedilimConnector() {
@@ -52,19 +51,21 @@ public class EnedilimConnector {
         try {
             Response response;
             try {
+                // Prefer https
                 Request request = new Request.Builder().url("https://" + url).addHeader("Accept", API_HEADER).build();
                 response = client.newCall(request).execute();
             } catch (IOException e) {
+                // Attempt http request instead
                 Request request = new Request.Builder().url("http://" + url).addHeader("Accept", API_HEADER).build();
                 response = client.newCall(request).execute();
             }
             if (response.isSuccessful()) {
                 return response.body().string();
-            } else {
-                throw new ConnectionException(true, true);
             }
+
+            throw new ConnectionException("Failed to retrieve word: " + response.body().string());
         } catch (IOException e) {
-            throw new ConnectionException(true, false);
+            throw new ConnectionException("Exception during enedilim request", e);
         }
     }
 }

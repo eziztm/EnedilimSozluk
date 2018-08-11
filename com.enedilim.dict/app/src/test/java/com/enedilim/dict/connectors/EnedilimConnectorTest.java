@@ -1,14 +1,14 @@
 package com.enedilim.dict.connectors;
 
 import com.enedilim.dict.exceptions.ConnectionException;
+import com.enedilim.dict.exceptions.SaxException;
 
-import static org.hamcrest.CoreMatchers.containsString;
-
-import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.hasItem;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class EnedilimConnectorTest {
     private EnedilimConnector connector = EnedilimConnector.getInstance();

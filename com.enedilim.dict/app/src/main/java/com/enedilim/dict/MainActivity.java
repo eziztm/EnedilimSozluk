@@ -15,7 +15,6 @@ import com.enedilim.dict.asynctasks.WordListInitializerTask;
 import com.enedilim.dict.fragments.AboutFragment;
 import com.enedilim.dict.fragments.HistoryFragment;
 import com.enedilim.dict.fragments.SearchFragment;
-import com.enedilim.dict.utils.CacheManager;
 import com.enedilim.dict.utils.DatabaseHelper;
 
 /**
@@ -41,20 +40,10 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
         setContentView(R.layout.main);
 
         initDatabase();
-        initCache();
         dbHelper = DatabaseHelper.getInstance(this);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, new SearchFragment(), SEARCH_FRAGMENT);
         transaction.commit();
-    }
-
-    /**
-     * Initializes and cleans the cache.
-     */
-    private void initCache() {
-        CacheManager cacheManager = CacheManager.getInstance();
-        cacheManager.setCacheDir(getCacheDir());
-        cacheManager.cleanCache();
     }
 
     @Override

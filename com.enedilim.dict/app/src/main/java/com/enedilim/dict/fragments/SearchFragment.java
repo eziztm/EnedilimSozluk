@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.enedilim.dict.R;
 import com.enedilim.dict.adapters.WordSuggestionsCursorAdapter;
 import com.enedilim.dict.adapters.WordsAdapter;
+import com.enedilim.dict.entity.Word;
 import com.enedilim.dict.fragments.support.WordFetchResult;
 import com.enedilim.dict.fragments.support.WordFetchTask;
 import com.enedilim.dict.utils.DatabaseHelper;
@@ -119,9 +120,9 @@ public class SearchFragment extends Fragment implements WordFetchTask.WordFetchL
         if (result.isError()) {
             errorMessage.setVisibility(View.VISIBLE);
             errorMessage.requestFocus();
-            if (result.getError().isOnline() && result.getError().isHostAvailable()) {
+            if (result.getError() == WordFetchResult.Error.NOT_FOUND) {
                 errorMessage.setText(getResources().getString(R.string.noWordMatch, result.getWord()));
-            } else if (result.getError().isOnline()) {
+            } else if (result.getError() == WordFetchResult.Error.REMOTE_FAILED) {
                 errorMessage.setText(getResources().getString(R.string.enedilimUnavailable));
             } else {
                 errorMessage.setText(getResources().getString(R.string.connectionOfflineError));

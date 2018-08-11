@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.enedilim.dict.R;
-import com.enedilim.dict.utils.CacheManager;
+import com.enedilim.dict.utils.DatabaseHelper;
 
 import java.util.List;
 
@@ -25,14 +25,14 @@ public class HistoryFragment extends Fragment {
 
     // Container Activity must implement this interface
     public interface OnWordSelectedListener {
-        public void onWordSelected(String word);
+        void onWordSelected(String word);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_history, container, false);
-        ListView historyListView = (ListView) v.findViewById(R.id.listViewHistory);
+        ListView historyListView = v.findViewById(R.id.listViewHistory);
         historyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                                    @Override
                                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -41,18 +41,18 @@ public class HistoryFragment extends Fragment {
                                                }
         );
 
-        words = CacheManager.getInstance().getCachedWords();
+        words = DatabaseHelper.getInstance(getContext()).getRecentlyViewed();
 
-        final ArrayAdapter<String> searchedWords = new ArrayAdapter<String>(getActivity(), R.layout.list_item, words);
+        final ArrayAdapter<String> searchedWords = new ArrayAdapter<>(getActivity(), R.layout.list_item, words);
         historyListView.setAdapter(searchedWords);
         historyListView.requestFocus();
 
-        ImageButton clearHistoryButton = (ImageButton) v.findViewById(R.id.clearHistoryButton);
+        ImageButton clearHistoryButton = v.findViewById(R.id.clearHistoryButton);
         clearHistoryButton.setEnabled(!words.isEmpty());
         clearHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CacheManager.getInstance().clearCacheDirectory();
+                DatabaseHelper.getInstance(getContext()).getClearRecentlyViewed();
                 searchedWords.clear();
                 v.setEnabled(false);
             }
