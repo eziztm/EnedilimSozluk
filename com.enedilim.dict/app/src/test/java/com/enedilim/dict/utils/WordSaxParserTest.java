@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 public class WordSaxParserTest {
 
-    private WordSaxParser parser = new WordSaxParser();
+    private WordSaxParser parser = WordSaxParser.getInstance();
 
     @Test
     public void shouldSuccessfullyParseFromString() throws Exception {

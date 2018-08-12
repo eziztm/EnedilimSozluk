@@ -1,7 +1,6 @@
 package com.enedilim.dict.connectors;
 
 import com.enedilim.dict.exceptions.ConnectionException;
-import com.enedilim.dict.exceptions.SaxException;
 
 import org.junit.Test;
 
