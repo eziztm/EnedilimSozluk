@@ -11,5 +11,8 @@ Development requirements
 	
 	
 Releasing
-------------------------
-Increment version and then run: gradle assembleRelease
+---------
+
+Uncomment `signingConfig signingConfigs.release` in the app/build.gradle file. Copy the `enedilimkeys` keyfile to `app/`, and then run:
+
+    $ ./gradlew build
