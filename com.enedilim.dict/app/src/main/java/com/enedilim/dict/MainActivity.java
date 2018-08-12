@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
 
     private DatabaseHelper dbHelper;
     private String currentFragment;
+    private String currentWord;
 
     /**
      * Called when the activity is first created.
@@ -143,9 +144,11 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         SearchFragment fragment = (SearchFragment) fragmentManager.findFragmentByTag(SEARCH_FRAGMENT);
+        currentWord = word;
         fragment.setDisplayWord(word);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_container,fragment, SEARCH_FRAGMENT);
+        currentFragment = SEARCH_FRAGMENT;
         transaction.commit();
     }
 
@@ -153,7 +156,15 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("CURRENT_FRAGMENT", currentFragment);
-        Log.d(TAG, "Storing instance state to " + currentFragment);
+        Log.d(TAG, "Storing instance state, current fragment " + currentFragment);
+
+        SearchFragment searchFragment = (SearchFragment) getSupportFragmentManager().findFragmentByTag(SEARCH_FRAGMENT);
+        if (searchFragment != null) {
+            currentWord = searchFragment.getDisplayWord();
+        }
+        outState.putString("CURRENT_WORD", currentWord);
+
+        Log.d(TAG, "Storing instance state, current word " + currentWord);
     }
 
     @Override
@@ -161,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
         super.onRestoreInstanceState(savedInstanceState);
 
         currentFragment = savedInstanceState.getString("CURRENT_FRAGMENT");
+        currentWord = savedInstanceState.getString("CURRENT_WORD");
         Log.d(TAG, "Restoring instance state to " + currentFragment);
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment requestedFragment;
@@ -176,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
                 if (!isCurrentlyVisible) {
                     fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 }
-                ((SearchFragment)requestedFragment).setDisplayWord(null);
+                ((SearchFragment) requestedFragment).setDisplayWord(currentWord);
                 break;
             case ABOUT_FRAGMENT:
                 requestedFragment = fragmentManager.findFragmentByTag(ABOUT_FRAGMENT);

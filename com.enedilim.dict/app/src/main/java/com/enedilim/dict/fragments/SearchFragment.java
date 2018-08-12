@@ -2,6 +2,8 @@ package com.enedilim.dict.fragments;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -50,14 +52,9 @@ public class SearchFragment extends Fragment implements WordFetchTask.WordFetchL
         searchField = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteWord);
         errorMessage = (TextView) view.findViewById(R.id.textViewErrorMessage);
 
-
-        if (!searchField.getText().toString().equals(displayWord)) {
-            searchField.setText("");
-        }
-        if (displayWord != null) {
+        if (displayWord != null && !displayWord.isEmpty()) {
             displayDefinitions();
         }
-
         setUpAutoCompleteSearchField();
         return view;
     }
@@ -91,6 +88,7 @@ public class SearchFragment extends Fragment implements WordFetchTask.WordFetchL
             }
         });
 
+
         // Reset the auto-complete field on long click
         searchField.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -115,6 +113,28 @@ public class SearchFragment extends Fragment implements WordFetchTask.WordFetchL
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (displayWord == null && searchField.getText().toString().isEmpty()) {
+            searchField.requestFocus();
+        } else if (displayWord != null && !searchField.getText().toString().equals(displayWord)) {
+            searchField.setText(displayWord);
+            searchField.postInvalidate();
+        } else {
+            displayWord = searchField.getText().toString();
+        }
+
+        if (displayWord != null && !displayWord.isEmpty()) {
+            displayDefinitions();
+        }
+
+    }
+
+    public String getDisplayWord() {
+        return displayWord;
+    }
+
+    @Override
     public void doneFetching(WordFetchResult result) {
         progressBar.setVisibility(View.GONE);
         if (result.isError()) {
@@ -136,7 +156,7 @@ public class SearchFragment extends Fragment implements WordFetchTask.WordFetchL
             definitionView.setAdapter(listAdapter);
             definitionView.setVisibility(View.VISIBLE);
             definitionView.requestFocus();
-            searchField.setText("");
         }
     }
+
 }
