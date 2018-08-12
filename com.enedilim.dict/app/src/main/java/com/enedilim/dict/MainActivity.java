@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
     private static final String HISTORY_FRAGMENT = "HISTORY";
 
     private DatabaseHelper dbHelper;
+    private String currentFragment;
 
     /**
      * Called when the activity is first created.
@@ -41,8 +43,11 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
 
         initDatabase();
         dbHelper = DatabaseHelper.getInstance(this);
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        currentFragment = SEARCH_FRAGMENT;
         transaction.replace(R.id.fragment_container, new SearchFragment(), SEARCH_FRAGMENT);
+        Log.d(TAG, "On create, displaying fragment: " + currentFragment);
         transaction.commit();
     }
 
@@ -106,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
             }
             transaction.commit();
         }
+        currentFragment = requestFragmentLabel;
         return super.onOptionsItemSelected(item);
     }
     /**
@@ -141,5 +147,62 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_container,fragment, SEARCH_FRAGMENT);
         transaction.commit();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("CURRENT_FRAGMENT", currentFragment);
+        Log.d(TAG, "Storing instance state to " + currentFragment);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        currentFragment = savedInstanceState.getString("CURRENT_FRAGMENT");
+        Log.d(TAG, "Restoring instance state to " + currentFragment);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment requestedFragment;
+        boolean isCurrentlyVisible;
+
+        switch (currentFragment) {
+            case SEARCH_FRAGMENT:
+                requestedFragment = fragmentManager.findFragmentByTag(SEARCH_FRAGMENT);
+                isCurrentlyVisible = requestedFragment != null && requestedFragment.isVisible();
+                if (requestedFragment == null) {
+                    requestedFragment = new SearchFragment();
+                }
+                if (!isCurrentlyVisible) {
+                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                }
+                ((SearchFragment)requestedFragment).setDisplayWord(null);
+                break;
+            case ABOUT_FRAGMENT:
+                requestedFragment = fragmentManager.findFragmentByTag(ABOUT_FRAGMENT);
+                isCurrentlyVisible = requestedFragment != null && requestedFragment.isVisible();
+                if (requestedFragment == null) {
+                    requestedFragment = new AboutFragment();
+                }
+                break;
+            case HISTORY_FRAGMENT:
+                requestedFragment = fragmentManager.findFragmentByTag(HISTORY_FRAGMENT);
+                isCurrentlyVisible = requestedFragment != null && requestedFragment.isVisible();
+                if (requestedFragment == null) {
+                    requestedFragment = new HistoryFragment();
+                }
+                break;
+            default:
+                return;
+        }
+
+        if (!isCurrentlyVisible) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.fragment_container, requestedFragment, currentFragment);
+            if (!currentFragment.equals(SEARCH_FRAGMENT)) {
+                transaction.addToBackStack(null);
+            }
+            transaction.commit();
+        }
     }
 }
