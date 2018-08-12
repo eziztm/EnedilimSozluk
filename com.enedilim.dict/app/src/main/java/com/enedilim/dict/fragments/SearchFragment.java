@@ -7,9 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -30,7 +32,7 @@ import com.enedilim.dict.utils.DatabaseHelper;
  * Fragment retrieves and display words and their definitions.
  *
  * @author Nazar
- * @version 1.0
+ * @version 1.1
  */
 public class SearchFragment extends Fragment implements WordFetchTask.WordFetchListener {
     private static final String TAG = SearchFragment.class.getSimpleName();
@@ -47,10 +49,10 @@ public class SearchFragment extends Fragment implements WordFetchTask.WordFetchL
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-        definitionView = (ListView) view.findViewById(R.id.listViewWordDefinitions);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        searchField = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteWord);
-        errorMessage = (TextView) view.findViewById(R.id.textViewErrorMessage);
+        definitionView = view.findViewById(R.id.listViewWordDefinitions);
+        progressBar = view.findViewById(R.id.progressBar);
+        searchField = view.findViewById(R.id.autoCompleteWord);
+        errorMessage = view.findViewById(R.id.textViewErrorMessage);
 
         if (displayWord != null && !displayWord.isEmpty()) {
             displayDefinitions();
@@ -85,6 +87,18 @@ public class SearchFragment extends Fragment implements WordFetchTask.WordFetchL
                 } else {
                     imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
                 }
+            }
+        });
+
+        searchField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(FragmentActivity.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
+                    return true;
+                }
+                return false;
             }
         });
 
