@@ -13,9 +13,9 @@ android {
     signingConfigs {
         release {
             storeFile file("enedilimkeys")
-            storePassword "garagum"
+            storePassword "<PASSWORD>"
             keyAlias "enedilimkeysalias"
-            keyPassword "garagum"
+            keyPassword "<PASSWORD>"
         }
     }
     buildTypes {
