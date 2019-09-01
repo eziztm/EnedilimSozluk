@@ -59,9 +59,6 @@ public class WordListInitializerTask extends AsyncTask<DatabaseHelper, Integer, 
         editor.commit();
         db.close();
 
-        UpdateWordListTask task = new UpdateWordListTask(context);
-        task.execute(dbHelpers[0]);
-
         return result;
     }
 }
