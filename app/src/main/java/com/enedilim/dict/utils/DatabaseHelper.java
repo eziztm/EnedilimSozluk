@@ -28,7 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_SQL = "create table words (_id integer primary key autoincrement, word text not null, content text, updated integer, viewed integer);";
     private static final String DROP_TABLE = "drop table if exists words;";
     public static final int DATABASE_VERSION = 5;
-    public static final int INCLUDED_WORDLIST_VERSION = 4;
+    public static final int INCLUDED_WORDLIST_VERSION = 8;
     private static final String WORDS_ASSET = "words.txt";
     private static DatabaseHelper instance;
     private final Context myContext;
@@ -71,7 +71,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         wordPrefix = wordPrefix.toLowerCase();
         wordPrefix = wordPrefix.replaceAll("ñ", "ň");
         wordPrefix = wordPrefix.replaceAll("ÿ", "ý");
-        return getReadableDatabase().query("words", null, "word like ?", new String[]{wordPrefix + "%"}, null, null, "word", "50");
+        wordPrefix = wordPrefix.replaceAll("š", "ş");
+        return getReadableDatabase().query("words", null, "word like ?", new String[]{wordPrefix + "%"}, null, null, "word", "25");
     }
 
     /**
