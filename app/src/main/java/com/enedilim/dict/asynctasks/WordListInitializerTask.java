@@ -56,7 +56,7 @@ public class WordListInitializerTask extends AsyncTask<DatabaseHelper, Integer, 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("DB_VERSION", DatabaseHelper.DATABASE_VERSION);
         editor.putInt("WORDLIST_VERSION", DatabaseHelper.INCLUDED_WORDLIST_VERSION);
-        editor.commit();
+        editor.apply();
         db.close();
 
         return result;

@@ -41,12 +41,13 @@ public class UpdateWordListTask extends AsyncTask<DatabaseHelper, Integer, Boole
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putLong("WORDLIST_VERSION_CHECK", new Date().getTime());
                         editor.putInt("WORDLIST_VERSION", onlineWordListVersion);
-                        return editor.commit();
+                        editor.apply();
+                        return true;
                     }
                 } else {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putLong("WORDLIST_VERSION_CHECK", new Date().getTime());
-                    editor.commit();
+                    editor.apply();
                 }
             } catch (ConnectionException e) {
                 Log.e(TAG, "Failed to retrieve wordlist remotely", e);
