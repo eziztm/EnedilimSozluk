@@ -56,7 +56,7 @@ public class WordSuggestionsCursorAdapter extends CursorAdapter {
      */
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        ((TextView) view).setText(cursor.getString(cursor.getColumnIndex(COLUMN_WORD)));
+        ((TextView) view).setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_WORD)));
     }
 
     /**
@@ -70,7 +70,7 @@ public class WordSuggestionsCursorAdapter extends CursorAdapter {
      */
     @Override
     public String convertToString(Cursor cursor) {
-        return cursor.getString(cursor.getColumnIndex(COLUMN_WORD));
+        return cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_WORD));
     }
 
     /**
