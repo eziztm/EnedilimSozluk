@@ -135,7 +135,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Set<String> storedWordList = new HashSet<>();
         if (cursor.moveToFirst()) {
             do {
-                storedWordList.add(cursor.getString(cursor.getColumnIndex("word")));
+                storedWordList.add(cursor.getString(cursor.getColumnIndexOrThrow("word")));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -181,7 +181,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = getReadableDatabase().query("words", new String[]{"content", "updated"}, "word = ? and content is not null", new String[]{word}, null, null, null, null);
         WordContent result = null;
         if (cursor.moveToFirst()) {
-            result = new WordContent(word, cursor.getString(cursor.getColumnIndex("content")), cursor.getLong(cursor.getColumnIndex("updated")));
+            result = new WordContent(word, cursor.getString(cursor.getColumnIndexOrThrow("content")), cursor.getLong(cursor.getColumnIndexOrThrow("updated")));
         }
         cursor.close();
 
@@ -209,7 +209,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         List<String> recentlyViewed = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
-                recentlyViewed.add(cursor.getString(cursor.getColumnIndex("word")));
+                recentlyViewed.add(cursor.getString(cursor.getColumnIndexOrThrow("word")));
             } while (cursor.moveToNext());
         }
         cursor.close();
