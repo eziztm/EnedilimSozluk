@@ -1,15 +1,13 @@
 package com.enedilim.dict.asynctasks;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
 import androidx.preference.PreferenceManager;
-import android.util.Log;
-import android.widget.Toast;
-import com.enedilim.dict.R;
+
 import com.enedilim.dict.utils.DatabaseHelper;
+
+import java.util.concurrent.Callable;
 
 /**
  * Initializes the word list dictionary.
@@ -18,47 +16,33 @@ import com.enedilim.dict.utils.DatabaseHelper;
  *
  * @author Nazar Annagurban
  */
-public class WordListInitializerTask extends AsyncTask<DatabaseHelper, Integer, Boolean> {
+public class WordListInitializerTask implements Callable<Boolean> {
 
     private static final String TAG = WordListInitializerTask.class.getSimpleName();
-    private ProgressDialog loadDialog;
+
     private Context context;
+    private final DatabaseHelper dbHelper;
 
-    public WordListInitializerTask(Context context) {
+    public WordListInitializerTask(Context context, DatabaseHelper dbHelper) {
         this.context = context;
+        this.dbHelper = dbHelper;
     }
 
     @Override
-    protected void onPreExecute() {
-        loadDialog = ProgressDialog.show(context, "", context.getString(R.string.buildingDatabase), true);
-    }
+    public Boolean call() {
+        boolean isSuccessful = false;
+        if (dbHelper != null) {
 
-    @Override
-    protected void onPostExecute(Boolean successful) {
-        loadDialog.dismiss();
-        if (!successful) {
-            String toastDbMsg = context.getResources().getString(R.string.errorDb);
-            Toast.makeText(context, toastDbMsg, Toast.LENGTH_LONG).show();
-            Log.e(TAG, "Exception while creating database.");
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            isSuccessful = db.isOpen() && !db.isReadOnly();
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt("DB_VERSION", DatabaseHelper.DATABASE_VERSION);
+            editor.putInt("WORDLIST_VERSION", DatabaseHelper.INCLUDED_WORDLIST_VERSION);
+            editor.apply();
+            db.close();
         }
-    }
-
-    @Override
-    protected Boolean doInBackground(DatabaseHelper... dbHelpers) {
-        if (dbHelpers[0] == null) {
-            return false;
-        }
-
-        SQLiteDatabase db = dbHelpers[0].getWritableDatabase();
-        boolean result = db.isOpen() && !db.isReadOnly();
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt("DB_VERSION", DatabaseHelper.DATABASE_VERSION);
-        editor.putInt("WORDLIST_VERSION", DatabaseHelper.INCLUDED_WORDLIST_VERSION);
-        editor.apply();
-        db.close();
-
-        return result;
+        return isSuccessful;
     }
 }

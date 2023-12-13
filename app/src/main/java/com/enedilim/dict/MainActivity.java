@@ -1,5 +1,7 @@
 package com.enedilim.dict;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.preference.PreferenceManager;
@@ -7,10 +9,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.enedilim.dict.asynctasks.TaskRunner;
 import com.enedilim.dict.asynctasks.UpdateWordListTask;
 import com.enedilim.dict.asynctasks.WordListInitializerTask;
 import com.enedilim.dict.fragments.AboutFragment;
@@ -34,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
     private String currentFragment;
     private String currentWord;
 
+    private TaskRunner taskRunner = new TaskRunner();
+
     /**
      * Called when the activity is first created.
      */
@@ -47,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         currentFragment = SEARCH_FRAGMENT;
-        transaction.replace(R.id.fragment_container, new SearchFragment(), SEARCH_FRAGMENT);
+        transaction.replace(R.id.fragment_container, new SearchFragment(taskRunner), SEARCH_FRAGMENT);
         Log.d(TAG, "On create, displaying fragment: " + currentFragment);
         transaction.commit();
     }
@@ -76,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
                 requestedFragment = fragmentManager.findFragmentByTag(SEARCH_FRAGMENT);
                 isCurrentlyVisible = requestedFragment != null && requestedFragment.isVisible();
                 if (requestedFragment == null) {
-                    requestedFragment = new SearchFragment();
+                    requestedFragment = new SearchFragment(taskRunner);
                 }
                 if (!isCurrentlyVisible) {
                     fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -126,11 +133,19 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         int dbVersion = preferences.getInt("DB_VERSION", 0);
         if (DatabaseHelper.DATABASE_VERSION > dbVersion) {
-            WordListInitializerTask initTask = new WordListInitializerTask(this);
-            initTask.execute(dbHelper);
+            final ProgressDialog loadDialog = ProgressDialog.show(this, "", getString(R.string.buildingDatabase), true);
+            Context parent = this;
+
+            taskRunner.executeAsync(new WordListInitializerTask(this, dbHelper), (result) -> {
+                loadDialog.dismiss();
+                if (!result) {
+                    String toastDbMsg = parent.getResources().getString(R.string.errorDb);
+                    Toast.makeText(parent, toastDbMsg, Toast.LENGTH_LONG).show();
+                    Log.e(TAG, "Exception while creating database.");
+                }
+            });
         } else {
-            UpdateWordListTask task = new UpdateWordListTask(this);
-            task.execute(dbHelper);
+            taskRunner.executeAsync(new UpdateWordListTask(this, dbHelper));
         }
 
     }
@@ -183,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
                 requestedFragment = fragmentManager.findFragmentByTag(SEARCH_FRAGMENT);
                 isCurrentlyVisible = requestedFragment != null && requestedFragment.isVisible();
                 if (requestedFragment == null) {
-                    requestedFragment = new SearchFragment();
+                    requestedFragment = new SearchFragment(taskRunner);
                 }
                 if (!isCurrentlyVisible) {
                     fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
