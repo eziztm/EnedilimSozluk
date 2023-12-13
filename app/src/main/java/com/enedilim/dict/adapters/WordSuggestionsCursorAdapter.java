@@ -22,7 +22,7 @@ public class WordSuggestionsCursorAdapter extends CursorAdapter {
     private final String COLUMN_WORD = "word";
 
     public WordSuggestionsCursorAdapter(Context context, DatabaseHelper databaseHelper) {
-        super(context, null);
+        super(context, null, 0);
         this.databaseHelper = databaseHelper;
     }
 
