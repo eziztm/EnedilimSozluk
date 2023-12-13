@@ -16,24 +16,21 @@ import com.enedilim.dict.utils.WordSaxParser;
 import org.xml.sax.SAXException;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 /**
  * Task for asynchronously fetching word definitions from cache or web.
  */
-public class WordFetchTask extends AsyncTask<String, Integer, WordFetchResult> {
+public class WordFetchTask implements Callable<WordFetchResult> {
 
-    // Container Activity must implement this interface
-    public interface WordFetchListener {
-        void doneFetching(WordFetchResult result);
-    }
 
     private static final String TAG = WordFetchTask.class.getSimpleName();
     private Context context;
-    private WordFetchListener callback;
+    private String word;
 
-    public WordFetchTask(Context context, WordFetchListener callback) {
+    public WordFetchTask(Context context, String word) {
         this.context = context;
-        this.callback = callback;
+        this.word = word;
     }
 
     /**
@@ -42,52 +39,47 @@ public class WordFetchTask extends AsyncTask<String, Integer, WordFetchResult> {
      * Use cache if it exists, else populate cache from server.
      */
     @Override
-    public WordFetchResult doInBackground(String... word) {
+    public WordFetchResult call() {
 
         try {
-            WordContent wordContent = DatabaseHelper.getInstance(context).getWordContent(word[0].trim());
+            WordContent wordContent = DatabaseHelper.getInstance(context).getWordContent(word.trim());
             boolean staleContentExists = false;
             if (wordContent != null) {
                 if (wordContent.isStale()) {
                     staleContentExists = true;
                 } else {
                     Log.i(TAG, "Word displayed from cache");
-                    return new WordFetchResult(word[0], WordSaxParser.getInstance().parseXml(wordContent.getContent()));
+                    return new WordFetchResult(word, WordSaxParser.getInstance().parseXml(wordContent.getContent()));
                 }
             }
 
             if (!isOnline()) {
                 if (staleContentExists) {
                     Log.i(TAG, "Showing stale content");
-                    return new WordFetchResult(word[0], WordSaxParser.getInstance().parseXml(wordContent.getContent()));
+                    return new WordFetchResult(word, WordSaxParser.getInstance().parseXml(wordContent.getContent()));
                 } else {
-                    return new WordFetchResult(word[0], WordFetchResult.Error.NO_NETWORK);
+                    return new WordFetchResult(word, WordFetchResult.Error.NO_NETWORK);
                 }
             }
 
-            String content = EnedilimConnector.getInstance().getWord(word[0]);
+            String content = EnedilimConnector.getInstance().getWord(word);
             if (content == null || content.isEmpty()) {
                 if (staleContentExists) {
-                    return new WordFetchResult(word[0], WordSaxParser.getInstance().parseXml(wordContent.getContent()));
+                    return new WordFetchResult(word, WordSaxParser.getInstance().parseXml(wordContent.getContent()));
                 } else {
-                    return new WordFetchResult(word[0], WordFetchResult.Error.NOT_FOUND);
+                    return new WordFetchResult(word, WordFetchResult.Error.NOT_FOUND);
                 }
             } else {
                 Log.i(TAG, "Word retrieved online");
                 List<Word> words = WordSaxParser.getInstance().parseXml(content);
-                DatabaseHelper.getInstance(context).storeWordContent(word[0].trim(), content);
-                return new WordFetchResult(word[0], words);
+                DatabaseHelper.getInstance(context).storeWordContent(word.trim(), content);
+                return new WordFetchResult(word, words);
             }
         } catch (ConnectionException e) {
-            return new WordFetchResult(word[0], WordFetchResult.Error.REMOTE_FAILED);
+            return new WordFetchResult(word, WordFetchResult.Error.REMOTE_FAILED);
         } catch (SAXException e) {
-            return new WordFetchResult(word[0], WordFetchResult.Error.NOT_FOUND);
+            return new WordFetchResult(word, WordFetchResult.Error.NOT_FOUND);
         }
-    }
-
-    @Override
-    public void onPostExecute(WordFetchResult result) {
-        callback.doneFetching(result);
     }
 
     // Determine if there is internet access

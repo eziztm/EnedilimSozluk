@@ -4,12 +4,7 @@
     <string name="app_desc">Türkmen diliniň düşündirişli sözlügi</string>
     <string name="connectionOfflineError">Internet baglanyşygynyň ýoklugy ýa-da haýallygy sebäpli söz indirilmedi...</string>
     <string name="enedilimUnavailable">«Ene dilim» sahypasy elýeterli däl, birazdan täzeden synanyşyp görüň.</string>
-    <string name="errorDb">Söz databazasynda ýalňyş döredi!</string>
-    <string name="msgDbConnection">Söz databazasyna baglanylýar</string>
-    <string name="msgLoadingWord">Söz indirilýär...</string>
     <string name="noWordMatch">«%s» sözlükde tapylmady.</string>
-    <string name="buildingDatabase">Söz databazasy gurulýar&#8230;</string>
-    <string name="visitSite">enedilim.com</string>
     <string name="menuAbout">Sözlük barada</string>
     <string name="diamond">&#9830;</string>
     <string name="history">Soňky görlenler</string>
@@ -17,6 +12,7 @@
     <string name="search">Gözle</string>
     <string name="rulesHeader">Ýazuw düzgüni</string>
     <string name="exampleHeader">Meselem</string>
-    <string name="searchSuggestion">Belki şu sözleriň biridir:</string>
     <string name="clearHistory">Soňky görlenleri poz</string>
+    <string name="buildingDatabase">Sözlügiň databazasy gurulýar...</string>
+    <string name="errorDb">Sözlügiň bazasy gurlanda ýalňyşlyk ýüze çykdy</string>
 </resources>

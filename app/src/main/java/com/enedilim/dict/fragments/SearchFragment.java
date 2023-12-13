@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.enedilim.dict.R;
 import com.enedilim.dict.adapters.WordSuggestionsCursorAdapter;
 import com.enedilim.dict.adapters.WordsAdapter;
+import com.enedilim.dict.asynctasks.TaskRunner;
 import com.enedilim.dict.fragments.support.WordFetchResult;
 import com.enedilim.dict.fragments.support.WordFetchTask;
 import com.enedilim.dict.utils.DatabaseHelper;
@@ -33,13 +34,19 @@ import com.enedilim.dict.utils.DatabaseHelper;
  * @author Nazar
  * @version 1.1
  */
-public class SearchFragment extends Fragment implements WordFetchTask.WordFetchListener {
+public class SearchFragment extends Fragment {
     private static final String TAG = SearchFragment.class.getSimpleName();
     private ListView definitionView;
     private ProgressBar progressBar;
     private AutoCompleteTextView searchField;
     private TextView errorMessage;
     private String displayWord;
+
+    private TaskRunner taskRunner;
+
+    public SearchFragment(TaskRunner taskRunner) {
+        this.taskRunner = taskRunner;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -116,8 +123,7 @@ public class SearchFragment extends Fragment implements WordFetchTask.WordFetchL
         definitionView.setVisibility(View.GONE);
         errorMessage.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
-        WordFetchTask wordFetchTask = new WordFetchTask(getActivity(), this);
-        wordFetchTask.execute(displayWord);
+        taskRunner.executeAsync(new WordFetchTask(getActivity(),  displayWord), this::doneFetching);
     }
 
     public void setDisplayWord(String displayWord) {
@@ -147,7 +153,7 @@ public class SearchFragment extends Fragment implements WordFetchTask.WordFetchL
         return displayWord;
     }
 
-    @Override
+
     public void doneFetching(WordFetchResult result) {
         progressBar.setVisibility(View.GONE);
         if (result.isError()) {
