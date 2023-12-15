@@ -24,7 +24,9 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/textViewWord"
             android:layout_toRightOf="@id/textViewWord"
+            android:layout_toEndOf="@id/textViewWord"
             android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:textStyle="italic"
             android:visibility="gone" />
 
