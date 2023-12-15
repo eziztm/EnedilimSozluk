@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.enedilim.dict.asynctasks.TaskRunner;
@@ -133,11 +136,13 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         int dbVersion = preferences.getInt("DB_VERSION", 0);
         if (DatabaseHelper.DATABASE_VERSION > dbVersion) {
-            final ProgressDialog loadDialog = ProgressDialog.show(this, "", getString(R.string.buildingDatabase), true);
+
+            final LinearLayout installationNotice = findViewById(R.id.installationNotice);
+            installationNotice.setVisibility(View.VISIBLE);
             Context parent = this;
 
             taskRunner.executeAsync(new WordListInitializerTask(this, dbHelper), (result) -> {
-                loadDialog.dismiss();
+                installationNotice.setVisibility(View.GONE);
                 if (!result) {
                     String toastDbMsg = parent.getResources().getString(R.string.errorDb);
                     Toast.makeText(parent, toastDbMsg, Toast.LENGTH_LONG).show();
