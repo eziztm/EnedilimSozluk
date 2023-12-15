@@ -6,7 +6,7 @@
     <string name="enedilimUnavailable">«Ene dilim» sahypasy elýeterli däl, birazdan täzeden synanyşyp görüň.</string>
     <string name="noWordMatch">«%s» sözlükde tapylmady.</string>
     <string name="menuAbout">Sözlük barada</string>
-    <string name="diamond">&#9830;</string>
+    <string name="diamond">◆</string>
     <string name="history">Soňky görlenler</string>
     <string name="search_hint">Gözleg</string>
     <string name="search">Gözle</string>

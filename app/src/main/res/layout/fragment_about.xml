@@ -10,7 +10,8 @@
         android:text="@string/menuAbout"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:paddingTop="20dp"
-        android:paddingLeft="10dp"/>
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" />
 
     <WebView android:id="@+id/htmlContent"
         android:layout_width="fill_parent"

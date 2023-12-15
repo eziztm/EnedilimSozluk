@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewDef"
         android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:paddingTop="10dp"
-        android:textStyle="italic"
-        android:fontFamily=""/>
+        android:textStyle="italic" />
 </RelativeLayout>
