@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final int INCLUDED_WORDLIST_VERSION = 8;
     private static final String WORDS_ASSET = "words.txt";
     private static DatabaseHelper instance;
-    private final Context myContext;
+    private final AssetManager assetManager;
 
     public static DatabaseHelper getInstance(Context context) {
         if (instance == null) {
@@ -43,7 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DATABASE_VERSION);
         Log.d(TAG, "Database info: " + DB_NAME + DATABASE_VERSION);
-        this.myContext = context;
+        this.assetManager = context.getAssets();
     }
 
     @Override
@@ -112,17 +112,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     private Set<String> getCompleteWordList() throws IOException {
         Set<String> words = new HashSet<>(21500);
-        BufferedReader bis = null;
-        try {
-            bis = new BufferedReader(new InputStreamReader(myContext.getAssets().open(WORDS_ASSET, AssetManager.ACCESS_STREAMING), "utf-8"));
+        try(BufferedReader bis = new BufferedReader(new InputStreamReader(assetManager.open(WORDS_ASSET, AssetManager.ACCESS_STREAMING), "utf-8"))) {
             String currentWord = "";
             while (currentWord != null) {
                 words.add(currentWord);
                 currentWord = bis.readLine();
-            }
-        } finally {
-            if (bis != null) {
-                bis.close();
             }
         }
         return words;
