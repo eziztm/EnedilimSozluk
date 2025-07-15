@@ -15,7 +15,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 public class WordSaxParser {
-    private SAXParserFactory spf;
+    private final SAXParserFactory spf;
     private static WordSaxParser instance;
 
     private WordSaxParser() {

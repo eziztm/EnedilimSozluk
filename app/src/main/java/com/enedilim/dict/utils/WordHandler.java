@@ -85,7 +85,7 @@ class WordHandler extends DefaultHandler {
     public void characters(char ch[], int start, int length) {
         String value = new String(ch, start, length);
         value = value.trim();
-        if (value.trim().equals("")) {
+        if (value.trim().isEmpty()) {
             return;
         }
 
