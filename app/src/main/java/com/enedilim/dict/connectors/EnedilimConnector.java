@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -20,7 +21,9 @@ public class EnedilimConnector {
     private final OkHttpClient client;
 
     private EnedilimConnector() {
-        client = new OkHttpClient();
+        client = new OkHttpClient.Builder()
+                .connectTimeout(5, TimeUnit.SECONDS)
+                .build();
     }
 
     public static EnedilimConnector getInstance() {
@@ -49,23 +52,26 @@ public class EnedilimConnector {
 
     private String doRequest(String url) throws ConnectionException {
         try {
-            Response response;
             try {
                 // Prefer https
-                Request request = new Request.Builder().url("https://" + url).addHeader("Accept", API_HEADER).build();
-                response = client.newCall(request).execute();
+                Request httpsRequest = new Request.Builder().url("https://" + url).addHeader("Accept", API_HEADER).build();
+                return doRequest(httpsRequest);
             } catch (IOException e) {
                 // Attempt http request instead
-                Request request = new Request.Builder().url("http://" + url).addHeader("Accept", API_HEADER).build();
-                response = client.newCall(request).execute();
+                Request httpRequest = new Request.Builder().url("http://" + url).addHeader("Accept", API_HEADER).build();
+                return doRequest(httpRequest);
             }
+        } catch (IOException e) {
+            throw new ConnectionException("Exception during enedilim request", e);
+        }
+    }
+
+    private String doRequest(Request request) throws IOException, ConnectionException {
+        try (Response response = client.newCall(request).execute()) {
             if (response.isSuccessful()) {
                 return response.body().string();
             }
-
             throw new ConnectionException("Failed to retrieve word: " + response.body().string());
-        } catch (IOException e) {
-            throw new ConnectionException("Exception during enedilim request", e);
         }
     }
 }
