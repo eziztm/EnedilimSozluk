@@ -1,4 +1,3 @@
--ha
 a
 aba
 abadan
@@ -169,8 +168,9 @@ aforizm
 aga
 agaç
 agaççylyk
-agaçjy
+agaççy
 agaçlyk
+agajet
 agalyk
 agaran
 agarçäkmen
@@ -322,9 +322,9 @@ agzybir
 agzybirlik
 agzysary
 agzysarylyk
-ah
 ah-a
 ah-wah
+ah
 ahaw
 ahbetin
 ahlak
@@ -457,15 +457,15 @@ akytmak
 akýal
 akýürekli
 akýüreklilik
-al
 al-arwah
 al-asman
 al-elwan
 al-howa
 al-ýaşyl
-ala
+al
 ala-böle
 ala-mula
+ala
 alabahar
 alabasgy
 alabeder
@@ -579,7 +579,7 @@ alkyndyk
 alkyş
 alkyşlamak
 alla
-allagoriýa
+allegoriýa
 allalamak
 allanäme
 allanämelik
@@ -670,6 +670,7 @@ anarhiýa
 anatom
 anatomik
 anatomiýa
+anbar
 andyz
 anekdot
 anemiýa
@@ -794,6 +795,7 @@ ap-açyk
 ap-tap
 apadaňlamak
 apaň-apaň
+aparmak
 apartament
 apat
 apatik
@@ -824,9 +826,9 @@ aprobasiýa
 aprobirlemek
 apteçka
 apy-tupan
-ar
 ar-namys
 ar-namysly
+ar
 ara
 araba
 arabaçy
@@ -859,8 +861,8 @@ aralanmak
 aralaşmak
 aralatmak
 aralyk
-aram
 aram-aram
+aram
 aramak
 aran
 arapça
@@ -906,7 +908,7 @@ argyş
 argyşçy
 argyşlamak
 arhaik
-arhaiz
+arhaizm
 arheograf
 arheografiýa
 arheolog
@@ -967,8 +969,8 @@ arma
 armada
 armak
 armaklyk
-arman
 arman-ýadaman
+arman
 armanly
 armanlylyk
 armansyz
@@ -1145,8 +1147,8 @@ aşpez
 aşpezlik
 aşygana
 aşygoty
-aşyk
 aşyk-magşuk
+aşyk
 aşykly
 aşyklyk
 aşylmak
@@ -1155,9 +1157,9 @@ aşyrmak
 aşyry
 aşyrylmak
 aşyrym
-at
 at-abraý
 at-ýarag
+at
 ata
 ata-baba
 atabir-enebir
@@ -1195,8 +1197,8 @@ atlanmak
 atlas
 atlaz
 atletika
-atly
 atly-abraýly
+atly
 atma-at
 atmak
 atmaklyk
@@ -1205,6 +1207,7 @@ atom
 atomçy
 atomistik
 atribut
+atşynas
 attaşe
 attestasiýa
 attestat
@@ -1416,8 +1419,8 @@ aýralyk
 aýran
 aýratyn
 aýratynlyk
-aýry
 aýry-aýry
+aýry
 aýrybaşga
 aýryk
 aýrylmak
@@ -1511,8 +1514,8 @@ babasyl
 babatda
 babatynda
 babyr
-bada
 bada-bat
+bada
 badak
 badam
 badamak
@@ -1524,10 +1527,10 @@ badyhowa
 badyhowalyk
 badyna
 badysaba
-bag
 bag-bakja
 bag-bakjalyk
 bag-bossan
+bag
 bagaž
 bagana
 bagban
@@ -1624,8 +1627,8 @@ bakyş
 bakyşdyrmak
 bakyşmak
 bal
-bala
 bala-çaga
+bala
 balaguş
 balahana
 balak
@@ -1791,8 +1794,8 @@ basyrylmak
 basyrynmak
 basyş
 basyşmak
-baş
 baş-başdaklyk
+baş
 başa-baş
 başagaý
 başagaýçylyk
@@ -1882,10 +1885,10 @@ batyrsumak
 batyrsyramak
 batyrylmak
 batyrynmak
-baý
 baý-baý
 baý-feodal
 baý-feodalçylyk
+baý
 baýak
 baýaky
 baýamak
@@ -2850,6 +2853,7 @@ bygyrdy
 byjyklamak
 bykyn
 byzmyk
+býujet
 ça
 çabalandyrmak
 çabalanmak
@@ -3079,9 +3083,9 @@ byzmyk
 çawlamak
 çawmak
 çawuş
-çaý
 çaý-çörek
 çaý-paý
+çaý
 çaýçaýňňalak
 çaýçorba
 çaýçy
@@ -3444,8 +3448,8 @@ byzmyk
 çökündi
 çöküşmek
 çöküt
-çöl
 çöl-beýewan
+çöl
 çöllük
 çölüstan
 çömmek
@@ -3885,8 +3889,8 @@ darykmak
 daryşgan
 daryşganlyk
 darytmak
-daş
 daş-töwerek
+daş
 daşalmak
 daşamak
 daşanmak
@@ -4368,8 +4372,8 @@ dilmek
 dilsiz
 dilsizlik
 dim-dik
-din
 din-adat
+din
 dina
 dinastik
 dinastiýa
@@ -4445,8 +4449,8 @@ dodagara
 dodak
 dodaklak
 dog
-doga
 doga-tumar
+doga
 dogabitdi
 dogagöý
 dogan
@@ -4670,6 +4674,7 @@ dramatizm
 dramaturg
 dramaturgiýa
 dramaturglyk
+drob
 duçar
 dul
 dulamak
@@ -5225,6 +5230,7 @@ ekleşmek
 ekletmek
 eklin
 ekmek
+eksport
 el
 elastik
 elbetde
@@ -5290,8 +5296,8 @@ eltmek
 elwan
 elýaglyk
 elýazma
-em
 em-ýom
+em
 emal
 emallamak
 emallaşmak
@@ -5368,6 +5374,7 @@ enteşmek
 entetmek
 entreklemek
 entrekleşmek
+entrekletmek
 entremek
 entreşmek
 entretmek
@@ -5536,6 +5543,8 @@ etdirtmek
 etek
 eteklemek
 etigmek
+etik
+etika
 etlek
 etli
 etli-ganly
@@ -5677,8 +5686,8 @@ ezýet
 äklemek
 äklenmek
 äl
-älem
 älem-jahan
+älem
 älemçi
 älemgoşar
 äm-säm
@@ -5776,6 +5785,7 @@ felýeton
 felýetonçy
 fenasetin
 fenologiýa
+fenomen
 feod
 feodal
 feodalçylyk
@@ -5988,6 +5998,7 @@ gahar-gazap
 gaharjaň
 gaharjaňlyk
 gaharlandyrmak
+gaharlanmak
 gaharlanyşmak
 gaharly
 gaharlyk
@@ -6439,8 +6450,8 @@ gastronom
 gasyk
 gasyn
 gasyn-gasyn
-gaş
 gaş-gabak
+gaş
 gaşamak
 gaşanmak
 gaşatmak
@@ -6563,6 +6574,7 @@ gaýratsyz
 gaýratsyzlyk
 gaýry
 gaýşak
+gaýşarmak
 gaýşartmak
 gaýşarylmak
 gaýta
@@ -6757,6 +6769,7 @@ geplenmek
 gepleşik
 gepleşmek
 gepletmek
+gerb
 gerbari
 gerçe
 gerçek
@@ -7664,6 +7677,7 @@ guwandyrmak
 guwanjaň
 guwanjaňlyk
 guwanmak
+guwwas
 guýdurmak
 guýguç
 guýlunmak
@@ -7776,8 +7790,8 @@ gümrükhana
 gümür-ýamyr
 gümürdi
 gümürtik
-gün
 gün-günden
+gün
 günaşa
 günaşym
 günaşymlyk
@@ -8049,8 +8063,8 @@ gyradeň
 gyradolaw
 gyragara
 gyrak-bujak
-gyran
 gyran-jyran
+gyran
 gyraň
 gyrat
 gyratlamak
@@ -8227,8 +8241,8 @@ gyzyklandyrmak
 gyzyklanmak
 gyzykly
 gyzykmak
-gyzyl
 gyzyl-çyzyl
+gyzyl
 gyzyletene
 gyzyletjik
 gyzylgyran
@@ -8245,6 +8259,7 @@ gyzyşmak
 gyzza-gyzza
 gyzza-gyzzalyk
 gyzzyrma
+-ha
 hababaýlamak
 hababaýlatmak
 habar
@@ -8278,21 +8293,21 @@ hažžyk
 hažžyldamak
 hažžyldaşmak
 hažžyldy
-hak
 hak-hesip
 hak-heşdek
 hak-hukuk
 hak-hukukly
 hak-hukuksyz
 hak-hukuksyzlyk
+hak
 hakda
 hakgulla
 haklamak
 haklaşmak
 haklaşyk
 hakly
-haksyz
 haksyz-hukuksyz
+haksyz
 haksyzlyk
 haku-nähak
 hakyda
@@ -8307,9 +8322,9 @@ hakyna
 hakynda
 hakyndan
 hakyt
-hal
 hal-ahwal
 hal-ýagdaý
+hal
 halal
 halal-haram
 halalhon
@@ -8321,8 +8336,8 @@ halanmak
 halas
 halasgär
 halaşmak
-halat
 halat-serpaý
+halat
 halatly
 halatlyk
 halatmak
@@ -8439,9 +8454,9 @@ haplyk-süplük
 hapyr-hupur
 hapyr-supur
 hapysa
-har
 har-hamyr
 har-haşal
+har
 haraba
 harabaçylyk
 harabalyk
@@ -8535,6 +8550,7 @@ hasratly
 hasratsyz
 hassa
 hassaçylyk
+hassahana
 hassalamak
 hassalatmak
 hassalyk
@@ -8585,8 +8601,8 @@ hat-sowatsyz
 hata
 hatalyk
 hatap
-hatar
 hatar-hatar
+hatar
 hatardaş
 hatarlamak
 hatarlanmak
@@ -8611,19 +8627,19 @@ hatyrdatmak
 hatyrdy
 hatyrjem
 hatyrjemlik
-haw
 haw-haw
+haw
 hawa
 hawlamak
 hawlaşmak
 hawwuldy
-haý
 haý-dek
 haý-haý
 haý-haýly
 haý-haýow
 haý-howaýy
 haý-küş
+haý
 haýa
 haýa-ser
 haýa-şerim
@@ -9736,6 +9752,7 @@ işdämenlik
 işdäsiz
 işdäsizlik
 işdirmek
+işek
 işeňňir
 işeňňirlik
 işgär
@@ -10172,8 +10189,8 @@ jüptün
 jür
 jürbe-jür
 jürdek
-jüre
 jüre-jüre
+jüre
 jürjen
 jürküldemek
 jürküldeşmek
@@ -10293,8 +10310,8 @@ jyzzynlaşmak
 žonglýor
 žonglýorlyk
 žurnal
-žurnalyst
-žurnalystika
+žurnalist
+žurnalistika
 žýuri
 kabul
 kada
@@ -10404,6 +10421,7 @@ kaza
 kazak
 kazy
 kazylyk
+kazyýet
 kebap
 kebelek
 kebeleklemek
@@ -10523,8 +10541,10 @@ kemzol
 kenar
 kenara
 kenaraly
+kendir
 kendirik
 kenek
+kenep
 keniz
 kenizek
 kent
@@ -11720,7 +11740,7 @@ mejal
 mejalsyz
 mejalsyzlyk
 mejbur
-mejburluk
+mejburlyk
 mejbury
 mejime
 mejlis
@@ -11948,7 +11968,11 @@ mikrohimiýa
 mikroskop
 millet
 milletçi
+milletparaz
+milletparazçylyk
 milli
+milliard
+million
 milt
 minara
 minnet
@@ -12083,6 +12107,7 @@ mutyg
 muwaplyk
 muzd
 muzdly
+muzeý
 mübärek
 mübäreklemek
 mübtela
@@ -12661,10 +12686,10 @@ ojakbaşy
 ojar
 ojarlyk
 ojuk-bujuk
-ok
 ok-däri
 ok-ýarag
 ok-ýaý
+ok
 okalga
 okalmak
 okamak
@@ -12887,13 +12912,13 @@ oslanmak
 osmak
 osmaklamak
 osmaklatmak
-ot
 ot-çöp
 ot-elek
 ot-iým
 ot-iýmlik
 ot-ojak
 ot-ýalyn
+ot
 otag
 otaga
 otagçy
@@ -12912,8 +12937,8 @@ otlanmak
 otlaşmak
 otlatmak
 otluçöp
-otluk
 otluk-suwluk
+otluk
 otlukly
 otly
 otukdyrmak
@@ -13007,8 +13032,8 @@ owurtlanmak
 owurtlatmak
 owuşmak
 owuz
-oý
 oý-pikir
+oý
 oýa
 oýaklatmak
 oýaly-ukuly
@@ -13142,9 +13167,9 @@ ozmak
 ölügsi
 ölügsilenmek
 ölülik
-ölüm
 ölüm-ýitim
 ölüm-ýitimsiz
+ölüm
 ölüp-öçmek
 ölüşmek
 ömrüzaýa
@@ -13374,8 +13399,8 @@ ozmak
 öýtmek
 öýülmek
 öýýüpi
-öz
 öz-özünden
+öz
 özakymlaýyn
 özakymly
 özakymlylyk
@@ -13531,10 +13556,10 @@ paňkyldatmak
 paňkyldy
 paňkylydamak
 paňlamak
-para
 para-jire
 para-para
 para-peşgeş
+para
 paradoks
 paradoksal
 paradoksallyk
@@ -13559,8 +13584,8 @@ parawuzlaşmak
 parawuzlatmak
 parawuzlyk
 parç
-parça
 parça-parça
+parça
 parçalamak
 parçalanmak
 parçalaşmak
@@ -14642,11 +14667,11 @@ sadyk
 sadyklyk
 sadylla
 sadyr
-sag
 sag-aman
 sag-gurgun
 sag-salamat
 sag-sol
+sag
 sagalmak
 sagaltmak
 sagana
@@ -14742,8 +14767,8 @@ sakyrdy
 sakyrtga
 sakyrtgalamak
 sakyrtgalatmak
-sal
 sal-sal
+sal
 sala
 salam
 salamat
@@ -14898,8 +14923,8 @@ saplamak
 saplanmak
 saplaşmak
 saplatmak
-saplyk
 saplyk-süplük
+saplyk
 sapmak
 sapylmak
 sapynmak
@@ -14983,8 +15008,8 @@ satyp-sowmak
 satyşmak
 sawçy
 sawçylyk
-saý
 saý-sebäp
+saý
 saýa
 saýak
 saýalamak
@@ -15032,8 +15057,8 @@ saýym
 saýyn
 saýyrdyň
 saýyşmak
-saz
 saz-söhbet
+saz
 sazak
 sazaklyk
 sazanaklamak
@@ -15174,8 +15199,8 @@ seňse
 seňselemek
 seňseletmek
 seňselik
-sep
 sep-sep
+sep
 separat
 separatist
 separatizm
@@ -15440,7 +15465,7 @@ sogap
 sogdurmak
 sogmak
 sogrulmak
-soguklatmak
+sowuklatmak
 soguljan
 sogurmak
 sogurtmak
@@ -15672,6 +15697,11 @@ sözlük
 sözme-söz
 sözsoňy
 spektakl
+sport
+sportsmen
+sprawka
+stabil
+stabillik
 student
 studentlik
 studiýa
@@ -15908,6 +15938,7 @@ sütemlik
 sütük
 sütün
 süýbek
+süýdemdirijiler
 süýek
 süýem
 süýgeşik
@@ -16848,8 +16879,8 @@ tapbatlanmak
 tapbatlaşmak
 tapbatlatmak
 tapdyrmak
-tapgyr
 tapgyr-tapgyr
+tapgyr
 tapgyrlyk
 taplamak
 taplanmak
@@ -17460,8 +17491,8 @@ tonnalamak
 tonnalyk
 toňkuldamak
 toňkuldatmak
-top
 top-top
+top
 topalak
 topalaň
 topalaňçy
@@ -17663,7 +17694,7 @@ trotskiçi
 trotskistik
 trotskizm
 trotuar
-troýnyk
+troýnik
 tudana
 tug
 tukat
@@ -17837,7 +17868,7 @@ tüýkürmek
 tüýkürtmek
 tüýlek
 tüýnük
-tüýnük ýüp
+tüýnükýüp
 tüýs
 tüýsli
 tüýtdürmek
@@ -18140,7 +18171,7 @@ uzynlyk
 übtük
 üç
 üçbir
-üçburçlyk
+üçburçluk
 üçek
 üçem
 üçgyýak
@@ -18292,8 +18323,8 @@ uzynlyk
 üýrüzmek
 üýşendirmek
 üýşenmek
-üýşmek
 üýşmek-üýşmek
+üýşmek
 üýşmeleň
 üýşüriligi
 üýşürilmek
@@ -18684,6 +18715,7 @@ yňranmak
 yňryljyramak
 yra-dara
 yrada
+yrak
 yralamak
 yramak
 yrandyrmak
@@ -19233,9 +19265,9 @@ yzzat
 ýasylanmak
 ýasylaşmak
 ýasylatmak
-ýaş
 ýaş-ýeleň
 ýaş-ýuş
+ýaş
 ýaşalmak
 ýaşamak
 ýaşarmak
@@ -20079,9 +20111,9 @@ zaňňyrdamak
 zaňňyrdaşmak
 zaňňyrdatmak
 zaňňyrdy
-zar
 zar-zar
 zar-zelil
+zar
 zarba
 zarbykmak
 zarlamak
@@ -20215,8 +20247,8 @@ zireklik
 zirk
 zogdurylmak
 zok
-zol
 zol-zol
+zol
 zolak
 zolak-zolak
 zolakly
