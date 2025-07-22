@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
     private String currentFragment;
     private String currentWord;
 
-    private TaskRunner taskRunner = new TaskRunner();
+    private final TaskRunner taskRunner = new TaskRunner();
 
     /**
      * Called when the activity is first created.
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         currentFragment = SEARCH_FRAGMENT;
-        transaction.replace(R.id.fragment_container, new SearchFragment(taskRunner), SEARCH_FRAGMENT);
+        transaction.replace(R.id.fragment_container, new SearchFragment(), SEARCH_FRAGMENT);
         Log.d(TAG, "On create, displaying fragment: " + currentFragment);
         transaction.commit();
     }
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
                 requestedFragment = fragmentManager.findFragmentByTag(SEARCH_FRAGMENT);
                 isCurrentlyVisible = requestedFragment != null && requestedFragment.isVisible();
                 if (requestedFragment == null) {
-                    requestedFragment = new SearchFragment(taskRunner);
+                    requestedFragment = new SearchFragment();
                 }
                 if (!isCurrentlyVisible) {
                     fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
                 requestedFragment = fragmentManager.findFragmentByTag(SEARCH_FRAGMENT);
                 isCurrentlyVisible = requestedFragment != null && requestedFragment.isVisible();
                 if (requestedFragment == null) {
-                    requestedFragment = new SearchFragment(taskRunner);
+                    requestedFragment = new SearchFragment();
                 }
                 if (!isCurrentlyVisible) {
                     fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -239,5 +239,8 @@ public class MainActivity extends AppCompatActivity implements HistoryFragment.O
             }
             transaction.commit();
         }
+    }
+    public TaskRunner getTaskRunner() {
+        return taskRunner;
     }
 }

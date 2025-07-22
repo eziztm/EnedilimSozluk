@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.enedilim.dict.MainActivity;
 import com.enedilim.dict.R;
 import com.enedilim.dict.adapters.WordSuggestionsCursorAdapter;
 import com.enedilim.dict.adapters.WordsAdapter;
@@ -44,10 +45,6 @@ public class SearchFragment extends Fragment {
 
     private TaskRunner taskRunner;
 
-    public SearchFragment(TaskRunner taskRunner) {
-        this.taskRunner = taskRunner;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,6 +56,10 @@ public class SearchFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         searchField = view.findViewById(R.id.autoCompleteWord);
         errorMessage = view.findViewById(R.id.textViewErrorMessage);
+
+        if (getActivity() instanceof MainActivity) {
+            taskRunner = ((MainActivity) getActivity()).getTaskRunner();
+        }
 
         if (displayWord != null && !displayWord.isEmpty()) {
             displayDefinitions();
