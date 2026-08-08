@@ -21,8 +21,4 @@
         <item name="android:layout_margin">0dp</item>
     </style>
 
-    <style name="BaseContainer">
-        <item name="android:paddingTop">90dp</item>
-    </style>
-
 </resources>
